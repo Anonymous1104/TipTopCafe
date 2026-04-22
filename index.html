@@ -1,1 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TipTop Cafe — Navi Mumbai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5ede0;
+      --cream-light: #fdf8f2;
+      --cream-dark: #e8d9c5;
+      --red: #b82c2c;
+      --red-dark: #8a1e1e;
+      --red-light: #d43f3f;
+      --brown: #4a2c14;
+      --brown-light: #7a4928;
+      --gold: #c8952a;
+      --text-dark: #2a1a0e;
+      --text-mid: #5a3a20;
+      --text-light: #9a7a5a;
+    }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream-light);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ──────────── NAV ──────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(245, 237, 224, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184, 44, 44, 0.15);
+      transition: all 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--red-dark);
+      letter-spacing: 1px;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--red);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ──────────── HERO ──────────── */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.38);
+      transform: scale(1.05);
+      animation: slowZoom 18s ease-in-out infinite alternate;
+    }
+    @keyframes slowZoom {
+      from { transform: scale(1.05); }
+      to   { transform: scale(1.12); }
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(139,30,30,0.55) 0%, rgba(42,26,14,0.7) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 80px;
+      max-width: 760px;
+      animation: fadeUp 1.2s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 5px 14px;
+      margin-bottom: 22px;
+      animation: fadeUp 1.2s 0.2s ease both;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 900;
+      color: var(--cream-light);
+      line-height: 1.08;
+      margin-bottom: 24px;
+      animation: fadeUp 1.2s 0.35s ease both;
+    }
+    .hero-title em { color: var(--gold); font-style: italic; }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: rgba(245,237,224,0.8);
+      font-weight: 300;
+      margin-bottom: 40px;
+      max-width: 480px;
+      line-height: 1.7;
+      animation: fadeUp 1.2s 0.5s ease both;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 18px;
+      animation: fadeUp 1.2s 0.65s ease both;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 15px 38px;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--red);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--cream-light);
+    }
+    .btn-outline {
+      display: inline-block;
+      padding: 15px 38px;
+      background: transparent;
+      color: var(--cream-light);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid rgba(245,237,224,0.5);
+      transition: all 0.3s;
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ──────────── DIVIDER ──────────── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .section-divider span {
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      white-space: nowrap;
+    }
+    .section-divider::before, .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--red);
+      opacity: 0.3;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--text-light);
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 540px;
+    }
+
+    /* ──────────── ABOUT ──────────── */
+    #about {
+      padding: 110px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      background: var(--cream-light);
+    }
+    .about-images {
+      position: relative;
+      height: 520px;
+    }
+    .about-img-main {
+      position: absolute;
+      top: 0; left: 0;
+      width: 75%;
+      height: 80%;
+      object-fit: cover;
+      border-radius: 2px;
+      box-shadow: 16px 16px 50px rgba(42,26,14,0.2);
+    }
+    .about-img-accent {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 55%;
+      height: 50%;
+      object-fit: cover;
+      border-radius: 2px;
+      border: 6px solid var(--cream-light);
+      box-shadow: 8px 8px 30px rgba(42,26,14,0.15);
+    }
+    .about-badge {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px; height: 100px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border: 4px solid var(--cream-light);
+      z-index: 2;
+    }
+    .about-badge strong { font-size: 1.6rem; font-weight: 900; line-height: 1; }
+    .about-badge span { font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.9; text-align: center; }
+    .about-text .section-sub { margin-bottom: 32px; }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 36px;
+      border-top: 1px solid var(--cream-dark);
+      padding-top: 32px;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--red);
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    /* ──────────── MENU / ORDER ──────────── */
+    #order {
+      padding: 110px 80px;
+      background: var(--cream-dark);
+      position: relative;
+      overflow: hidden;
+    }
+    #order::before {
+      content: '"';
+      position: absolute;
+      top: -40px; right: 60px;
+      font-family: 'Playfair Display', serif;
+      font-size: 28rem;
+      color: rgba(184,44,44,0.05);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .order-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .order-header .section-sub { margin: 0 auto; text-align: center; }
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 48px;
+      border-bottom: 2px solid rgba(184,44,44,0.2);
+    }
+    .menu-tab {
+      padding: 12px 32px;
+      background: none;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.25s;
+    }
+    .menu-tab.active {
+      color: var(--red);
+      border-bottom-color: var(--red);
+    }
+    .menu-tab:hover { color: var(--red); }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .menu-card {
+      background: var(--cream-light);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .menu-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(42,26,14,0.18);
+    }
+    .menu-card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s;
+    }
+    .menu-card:hover .menu-card-img { transform: scale(1.06); }
+    .menu-card-img-wrap { overflow: hidden; }
+    .menu-card-body {
+      padding: 20px 22px 22px;
+    }
+    .menu-card-tag {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .menu-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+    .menu-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .menu-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .menu-card-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--brown-light);
+    }
+    .btn-add {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-add:hover { background: var(--red-dark); }
+    /* hidden tab panels */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ──────────── QUOTE BAND ──────────── */
+    .quote-band {
+      background: var(--red-dark);
+      padding: 60px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1507133750040-4a8f57021571?w=1400&q=60');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.1;
+    }
+    .quote-band blockquote {
+      position: relative;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-style: italic;
+      color: var(--cream-light);
+      max-width: 800px;
+      margin: 0 auto 16px;
+      line-height: 1.5;
+    }
+    .quote-band cite {
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ──────────── CONTACT ──────────── */
+    #contact {
+      padding: 110px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-info-block {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+    .contact-icon {
+      width: 48px; height: 48px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { fill: white; width: 20px; height: 20px; }
+    .contact-info-label {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 4px;
+    }
+    .contact-info-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+    .form-input, .form-textarea {
+      background: var(--cream-dark);
+      border: 1px solid transparent;
+      padding: 13px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--red); }
+    .form-textarea { resize: vertical; min-height: 130px; }
+    .form-submit {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--red-dark); }
+
+    /* ──────────── SOCIAL ──────────── */
+    #social {
+      padding: 80px 80px;
+      background: var(--cream-dark);
+      text-align: center;
+    }
+    .social-header { margin-bottom: 48px; }
+    .social-header .section-sub { margin: 0 auto; }
+    .social-feed {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 48px;
+    }
+    .social-tile {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer;
+    }
+    .social-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+    .social-tile:hover img { transform: scale(1.1); }
+    .social-tile-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(139,30,30,0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .social-tile:hover .social-tile-overlay { opacity: 1; }
+    .social-tile-overlay svg { fill: white; width: 32px; height: 32px; }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 28px;
+      background: var(--text-dark);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: background 0.25s;
+    }
+    .social-link:hover { background: var(--red); }
+    .social-link svg { fill: currentColor; width: 18px; height: 18px; }
+
+    /* ──────────── FOOTER ──────────── */
+    footer {
+      background: var(--text-dark);
+      color: var(--cream-dark);
+      padding: 50px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--cream);
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      letter-spacing: 0.5px;
+    }
+
+    /* ──────────── TOAST ──────────── */
+    #toast {
+      position: fixed;
+      bottom: 30px; right: 30px;
+      background: var(--red-dark);
+      color: white;
+      padding: 14px 24px;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 999;
+    }
+    #toast.show { opacity: 1; }
+
+    /* ──────────── SCROLL REVEAL ──────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ──────────── RESPONSIVE ──────────── */
+    @media (max-width: 900px) {
+      nav { padding: 14px 24px; }
+      .nav-links { gap: 20px; }
+      #about, #contact { grid-template-columns: 1fr; padding: 70px 30px; }
+      .about-images { height: 300px; }
+      #order, #social { padding: 70px 30px; }
+      .menu-grid { grid-template-columns: 1fr 1fr; }
+      .social-feed { grid-template-columns: repeat(2, 1fr); }
+      .hero-content { padding: 0 30px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 40px 30px; }
+      .quote-band { padding: 50px 30px; }
+    }
+    @media (max-width: 600px) {
+      .menu-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-btns { flex-direction: column; }
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Tip<span>Top</span>Cafe</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#order">Menu</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#social">Follow Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Est. 2018 · Navi Mumbai</div>
+      <h1 class="hero-title">Where Every<br>Sip is <em>Perfect</em></h1>
+      <p class="hero-sub">Handcrafted coffees, freshly baked pastries & cookies — made with love in the heart of Navi Mumbai.</p>
+      <div class="hero-btns">
+        <a href="#order" class="btn-primary">Explore Menu</a>
+        <a href="#about" class="btn-outline">Our Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-images reveal">
+      <img class="about-img-main"
+           src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=800&q=80"
+           alt="Cozy cafe interior" loading="lazy" />
+      <img class="about-img-accent"
+           src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80"
+           alt="Coffee with latte art" loading="lazy" />
+      <div class="about-badge">
+        <strong>6+</strong>
+        <span>Years of Warmth</span>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-divider"><span>About Us</span></div>
+      <h2 class="section-title">A Corner of Warmth in Navi Mumbai</h2>
+      <p class="section-sub">
+        Born from a deep love for coffee culture and the art of baking, TipTop Cafe has been Navi Mumbai's favourite neighbourhood retreat since 2018. We believe a great cup of coffee can change your morning — and a fresh-baked cookie can change your day.
+      </p>
+      <p class="section-sub" style="margin-top:16px;">
+        Every blend is sourced, every pastry is crafted, and every smile is served fresh — right here on your street.
+      </p>
+      <div class="about-stats">
+        <div class="stat-item">
+          <span class="stat-num">12+</span>
+          <span class="stat-label">Coffee Blends</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">30+</span>
+          <span class="stat-label">Baked Items</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">500+</span>
+          <span class="stat-label">Happy Guests / Day</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER / MENU -->
+  <section id="order">
+    <div class="order-header reveal">
+      <div class="section-divider"><span>Our Menu</span></div>
+      <h2 class="section-title">Crafted with Passion</h2>
+      <p class="section-sub">From velvety espressos to golden croissants — everything is made fresh, every single day.</p>
+    </div>
+
+    <div class="menu-tabs">
+      <button class="menu-tab active" onclick="switchTab('coffee', this)">☕ Coffee</button>
+      <button class="menu-tab" onclick="switchTab('bakery', this)">🥐 Bakery</button>
+      <button class="menu-tab" onclick="switchTab('cold', this)">🧋 Cold Drinks</button>
+    </div>
+
+    <!-- COFFEE -->
+    <div class="tab-panel active" id="tab-coffee">
+      <div class="menu-grid">
+        <div class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img class="menu-card-img" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80" alt="Cappuccino" loading="lazy" />
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-tag">Hot · Espresso</div>
+            <div class="menu-card-name">Classic Cappuccino</div>
+            <div class="menu-card-desc">Rich espresso shot topped with velvety steamed milk and a thick layer of foam.</div>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">₹160</span>
+              <button class="btn-add" onclick="addToCart('Classic Cappuccino')">Add +</button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img class="menu-card-img" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80" alt="Flat White" loading="lazy" />
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-tag">Hot · Signature</div>
+            <div class="menu-card-name">TipTop Flat White</div>
+            <div class="menu-card-desc">Silky microfoam poured over a double ristretto — smooth, bold, and beautifully balanced.</div>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">₹185</span>
+              <button class="btn-add" onclick="addToCart('TipTop Flat White')">Add +</button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img class="menu-card-img" src="https://images.unsplash.com/photo-1534040385115-33dcb3acba5b?w=600&q=80" alt="Latte" loading="lazy" />
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-tag">Hot · Classic</div>
+            <div class="menu-card-name">Café Latte</div>
+            <div class="menu-card-desc">A gentle espresso base drowned in steamed whole milk — creamy, comforting, and classic.</div>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">₹170</span>
+              <button class="btn-add" onclick="addToCart('Café Latte')">Add +</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BAKERY -->
+    <div class="tab-panel" id="tab-bakery">
+      <div class="menu-grid">
+        <div class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img class="menu-card-img" src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&q=80" alt="Cookies" loading="lazy" />
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-tag">Bakery · Cookie</div>
+            <div class="menu-card-name">Double Choco Cookie</div>
+            <div class="menu-card-desc">Chunky chocolate chip cookies baked fresh every morning — crispy edges, gooey center.</div>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">₹80</span>
+              <button class="btn-add" onclick="addToCart('Double Choco Cookie')">Add +</button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img class="menu-card-img" src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80" alt="Croissant" loading="lazy" />
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-tag">Bakery · Pastry</div>
+            <div class="menu-card-name">Butter Croissant</div>
+            <div class="menu-card-desc">Flaky, golden, buttery layers — our croissants are laminated to perfection and baked to order.</div>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">₹120</span>
+              <button class="btn-add" onclick="addToCart('Butter Croissant')">Add +</button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img class="menu-card-img" src="https://images.unsplash.com/photo-1488477304112-4944851de03d?w=600&q=80" alt="Cinnamon Roll" loading="lazy" />
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-tag">Bakery · Sweet</div>
+            <div class="menu-card-name">Cinnamon Swirl</div>
+            <div class="menu-card-desc">Soft dough swirled with cinnamon sugar, glazed with cream cheese icing. Pure indulgence.</div>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">₹140</span>
+              <button class="btn-add" onclick="addToCart('Cinnamon Swirl')">Add +</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLD DRINKS -->
+    <div class="tab-panel" id="tab-cold">
+      <div class="menu-grid">
+        <div class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img class="menu-card-img" src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=600&q=80" alt="Iced Latte" loading="lazy" />
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-tag">Cold · Espresso</div>
+            <div class="menu-card-name">Iced Vanilla Latte</div>
+            <div class="menu-card-desc">Cold milk over ice, vanilla syrup, and a double shot of espresso poured on top — refreshing bliss.</div>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">₹200</span>
+              <button class="btn-add" onclick="addToCart('Iced Vanilla Latte')">Add +</button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img class="menu-card-img" src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&q=80" alt="Frappe" loading="lazy" />
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-tag">Cold · Blended</div>
+            <div class="menu-card-name">Mocha Frappe</div>
+            <div class="menu-card-desc">Blended ice, espresso, chocolate and topped with whipped cream — the ultimate cool treat.</div>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">₹220</span>
+              <button class="btn-add" onclick="addToCart('Mocha Frappe')">Add +</button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img class="menu-card-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Cold Brew" loading="lazy" />
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-tag">Cold · Slow Brew</div>
+            <div class="menu-card-name">Signature Cold Brew</div>
+            <div class="menu-card-desc">Steeped for 16 hours, served over ice — smooth, low-acid, naturally sweet cold brew.</div>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">₹195</span>
+              <button class="btn-add" onclick="addToCart('Signature Cold Brew')">Add +</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE BAND -->
+  <div class="quote-band">
+    <blockquote>"Life is too short for bad coffee — come find the good kind."</blockquote>
+    <cite>— The TipTop Family, Navi Mumbai</cite>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <div class="section-divider"><span>Contact Us</span></div>
+      <h2 class="section-title">Come Visit Us</h2>
+      <p class="section-sub" style="margin-bottom:40px;">We'd love to see you in person. Or drop us a message — we'll get back to you before your next cup is ready.</p>
+
+      <div class="contact-info-block">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Address</div>
+          <div class="contact-info-value">Shop 4, Sai Residency, Sector 17,<br>Vashi, Navi Mumbai – 400703</div>
+        </div>
+      </div>
+
+      <div class="contact-info-block">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Phone</div>
+          <div class="contact-info-value">+91 98765 43210</div>
+        </div>
+      </div>
+
+      <div class="contact-info-block">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Hours</div>
+          <div class="contact-info-value">Mon – Fri: 7:00 AM – 10:00 PM<br>Sat – Sun: 8:00 AM – 11:00 PM</div>
+        </div>
+      </div>
+
+      <div class="contact-info-block">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Email</div>
+          <div class="contact-info-value">hello@tiptopcafe.in</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <form class="contact-form" onsubmit="handleForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" type="text" placeholder="Riya Sharma" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input class="form-input" type="tel" placeholder="+91 98765 43210" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Ask about reservations, catering, or just say hi!"></textarea>
+        </div>
+        <button class="form-submit" type="submit">Send Message →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- SOCIAL -->
+  <section id="social">
+    <div class="social-header reveal">
+      <div class="section-divider"><span>Follow Us</span></div>
+      <h2 class="section-title">Life at TipTop</h2>
+      <p class="section-sub">Tag us in your TipTop moments. We share the love every day on Instagram & Facebook.</p>
+    </div>
+
+    <div class="social-feed reveal">
+      <div class="social-tile">
+        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=400&q=70" alt="cafe social" loading="lazy" />
+        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="social-tile">
+        <img src="https://images.unsplash.com/photo-1479955806209-78a0a55f7b2f?w=400&q=70" alt="cafe social" loading="lazy" />
+        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="social-tile">
+        <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=400&q=70" alt="cafe social" loading="lazy" />
+        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="social-tile">
+        <img src="https://images.unsplash.com/photo-1506459225024-1428097a7e18?w=400&q=70" alt="cafe social" loading="lazy" />
+        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+    </div>
+
+    <div class="social-links reveal">
+      <a class="social-link" href="#" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @TipTopCafe
+      </a>
+      <a class="social-link" href="#" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        TipTopCafe
+      </a>
+      <a class="social-link" href="#" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.76a4.85 4.85 0 01-1.02-.07z"/></svg>
+        TipTopCafe
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-logo">Tip<span>Top</span>Cafe</div>
+      <div class="footer-tagline">Crafted with love in Navi Mumbai ☕</div>
+    </div>
+    <div class="footer-copy">© 2025 TipTop Cafe · All rights reserved · Vashi, Navi Mumbai</div>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <script>
+    // Tab switching
+    function switchTab(name, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // Add to cart toast
+    function addToCart(name) {
+      const t = document.getElementById('toast');
+      t.textContent = '✓  ' + name + ' added to your order!';
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2400);
+    }
+
+    // Form submit
+    function handleForm(e) {
+      e.preventDefault();
+      const t = document.getElementById('toast');
+      t.textContent = '✓  Message sent! We\'ll be in touch soon.';
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+      e.target.reset();
+    }
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      nav.style.boxShadow = window.scrollY > 40 ? '0 4px 30px rgba(42,26,14,0.12)' : 'none';
+    });
+  </script>
+</body>
+</html>
