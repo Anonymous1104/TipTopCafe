@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tip Top Cafe — Navi Mumbai</title>
+  <title>Tip Top Cafe Navi Mumbai</title>
   <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/Anonymous1104/TipTopCafe/63db59693848bd1fddd2a6a3f62faef4066d7f1b/assets/Logo%20Mark.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
@@ -24,14 +24,24 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 110px;
+      width: 100%;
+      overflow-x: hidden;
+    }
 
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--cream-light);
       color: var(--text-dark);
       overflow-x: hidden;
+      width: 100%;
+      position: relative;
+      -webkit-overflow-scrolling: touch;
     }
+
+    img { max-width: 100%; }
 
     /* ──────────── NAV ──────────── */
     nav {
@@ -51,9 +61,10 @@
       display: flex;
       align-items: center;
       text-decoration: none;
+      flex-shrink: 0;
     }
     .nav-logo img {
-      height: 38px;
+      height: 58px;
       width: auto;
       display: block;
     }
@@ -143,7 +154,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.25rem;
       color: rgba(245,237,224,0.8);
-      font-weight: 300;
+      font-weight: 400;
       margin-bottom: 40px;
       max-width: 480px;
       line-height: 1.7;
@@ -223,7 +234,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.15rem;
       color: var(--text-light);
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.7;
       max-width: 540px;
     }
@@ -240,10 +251,11 @@
     .about-images {
       position: relative;
       height: 520px;
+      min-width: 0;
     }
     .about-img-main {
       position: absolute;
-      top: 0; left: 0;
+      top: 24px; left: 0;
       width: 75%;
       height: 80%;
       object-fit: cover;
@@ -329,6 +341,7 @@
       gap: 0;
       margin-bottom: 48px;
       border-bottom: 2px solid rgba(184,44,44,0.2);
+      flex-wrap: wrap;
     }
     .menu-tab {
       padding: 12px 32px;
@@ -351,15 +364,31 @@
     }
     .menu-tab:hover { color: var(--red); }
     .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      overflow: hidden;
+      width: 100%;
+    }
+    .menu-track {
+      display: flex;
+      align-items: stretch;
       gap: 28px;
+      width: max-content;
+      animation: menuMarquee var(--marquee-duration, 22s) linear infinite;
+      will-change: transform;
+    }
+    .menu-grid:hover .menu-track {
+      animation-play-state: paused;
+    }
+    @keyframes menuMarquee {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(calc(-1 * var(--scroll-distance, 0px)), 0, 0); }
     }
     .menu-card {
       background: var(--cream-light);
       overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
+      cursor: default;
+      min-width: 0;
+      flex: 0 0 clamp(260px, 28vw, 340px);
     }
     .menu-card:hover {
       transform: translateY(-8px);
@@ -395,33 +424,8 @@
       font-size: 0.82rem;
       color: var(--text-light);
       line-height: 1.6;
-      margin-bottom: 16px;
+      margin-bottom: 0;
     }
-    .menu-card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .menu-card-price {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--brown-light);
-    }
-    .btn-add {
-      background: var(--red);
-      color: white;
-      border: none;
-      padding: 8px 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-add:hover { background: var(--red-dark); }
-    /* hidden tab panels */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
@@ -495,6 +499,7 @@
       font-size: 1.1rem;
       color: var(--text-mid);
       line-height: 1.6;
+      font-weight: 400;
     }
     .contact-form { display: flex; flex-direction: column; gap: 16px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -553,6 +558,7 @@
       overflow: hidden;
       aspect-ratio: 1;
       cursor: pointer;
+      min-width: 0;
     }
     .social-tile img {
       width: 100%;
@@ -578,6 +584,7 @@
       display: flex;
       justify-content: center;
       gap: 20px;
+      flex-wrap: wrap;
     }
     .social-link {
       display: flex;
@@ -592,6 +599,7 @@
       letter-spacing: 1.5px;
       text-transform: uppercase;
       transition: background 0.25s;
+      min-width: 0;
     }
     .social-link:hover { background: var(--red); }
     .social-link svg { fill: currentColor; width: 18px; height: 18px; }
@@ -600,23 +608,27 @@
     footer {
       background: var(--text-dark);
       color: var(--cream-dark);
-      padding: 50px 80px;
+      padding: 32px 80px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 24px;
     }
     .footer-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: var(--cream);
+      display: inline-flex;
+      align-items: center;
     }
-    .footer-logo span { color: var(--gold); }
+    .footer-logo img {
+      height: 58px;
+      width: auto;
+      display: block;
+    }
     .footer-tagline {
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.95rem;
       color: var(--text-light);
       margin-top: 4px;
+      font-weight: 400;
     }
     .footer-copy {
       font-size: 0.78rem;
@@ -637,6 +649,7 @@
       pointer-events: none;
       transition: opacity 0.3s;
       z-index: 999;
+      max-width: calc(100vw - 40px);
     }
     #toast.show { opacity: 1; }
 
@@ -651,22 +664,44 @@
     /* ──────────── RESPONSIVE ──────────── */
     @media (max-width: 900px) {
       nav { padding: 14px 24px; }
+      .nav-logo img { height: 48px; }
       .nav-links { gap: 20px; }
       #about, #contact { grid-template-columns: 1fr; padding: 70px 30px; }
       .about-images { height: 300px; }
+      .about-img-main { top: 18px; }
       #order, #social { padding: 70px 30px; }
-      .menu-grid { grid-template-columns: 1fr 1fr; }
       .social-feed { grid-template-columns: repeat(2, 1fr); }
       .hero-content { padding: 0 30px; }
-      footer { flex-direction: column; gap: 16px; text-align: center; padding: 40px 30px; }
+      footer { flex-direction: column; text-align: center; padding: 28px 30px; }
+      .footer-logo img { height: 48px; }
       .quote-band { padding: 50px 30px; }
     }
     @media (max-width: 600px) {
-      .menu-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .hero-btns { flex-direction: column; }
       nav { padding: 12px 20px; }
+      .nav-logo img { height: 44px; }
       .nav-links { display: none; }
+      .about-img-main { top: 14px; }
+      .menu-tab {
+        flex: 1 1 calc(50% - 8px);
+        padding: 12px 18px;
+      }
+      .social-links { flex-direction: column; }
+      .social-link { justify-content: center; width: 100%; }
+      .footer-logo img { height: 44px; }
+      .menu-card {
+        flex-basis: min(82vw, 320px);
+      }
+      .menu-grid:hover .menu-track {
+        animation-play-state: running;
+      }
+      #toast {
+        right: 20px;
+        left: 20px;
+        bottom: 20px;
+        max-width: none;
+      }
     }
   </style>
 </head>
@@ -678,7 +713,7 @@
       <img src="https://raw.githubusercontent.com/Anonymous1104/TipTopCafe/63db59693848bd1fddd2a6a3f62faef4066d7f1b/assets/Logo%20Tip%20Top%20Cafe.svg" alt="Tip Top Cafe" />
     </a>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
+      <li><a href="#about">About Us</a></li>
       <li><a href="#order">Menu</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="#social">Follow Us</a></li>
@@ -692,7 +727,7 @@
     <div class="hero-content">
       <div class="hero-tag">Est. 2018 · Navi Mumbai</div>
       <h1 class="hero-title">Where Every<br>Sip is <em>Perfect</em></h1>
-      <p class="hero-sub">Handcrafted coffees, freshly baked pastries & cookies — made with love in the heart of Navi Mumbai.</p>
+      <p class="hero-sub">Handcrafted coffees, freshly baked pastries & cookies made with love in the heart of Navi Mumbai.</p>
       <div class="hero-btns">
         <a href="#order" class="btn-primary">Explore Menu</a>
         <a href="#about" class="btn-outline">Our Story</a>
@@ -718,10 +753,10 @@
       <div class="section-divider"><span>About Us</span></div>
       <h2 class="section-title">A Corner of Warmth in Navi Mumbai</h2>
       <p class="section-sub">
-        Born from a deep love for coffee culture and the art of baking, TipTop Cafe has been Navi Mumbai's favourite neighbourhood retreat since 2018. We believe a great cup of coffee can change your morning — and a fresh-baked cookie can change your day.
+        Born from a deep love for coffee culture and the art of baking, TipTop Cafe has been Navi Mumbai's favourite neighbourhood retreat since 2018. We believe a great cup of coffee can change your morning and a fresh-baked cookie can change your day.
       </p>
       <p class="section-sub" style="margin-top:16px;">
-        Every blend is sourced, every pastry is crafted, and every smile is served fresh — right here on your street.
+        Every blend is sourced, every pastry is crafted, and every smile is served fresh right here on your street.
       </p>
       <div class="about-stats">
         <div class="stat-item">
@@ -745,7 +780,7 @@
     <div class="order-header reveal">
       <div class="section-divider"><span>Our Menu</span></div>
       <h2 class="section-title">Crafted with Passion</h2>
-      <p class="section-sub">From velvety espressos to golden croissants — everything is made fresh, every single day.</p>
+      <p class="section-sub">From velvety espressos to golden croissants, everything is made fresh every single day.</p>
     </div>
 
     <div class="menu-tabs">
@@ -757,45 +792,35 @@
     <!-- COFFEE -->
     <div class="tab-panel active" id="tab-coffee">
       <div class="menu-grid">
-        <div class="menu-card reveal">
-          <div class="menu-card-img-wrap">
-            <img class="menu-card-img" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80" alt="Cappuccino" loading="lazy" />
-          </div>
-          <div class="menu-card-body">
-            <div class="menu-card-tag">Hot · Espresso</div>
-            <div class="menu-card-name">Classic Cappuccino</div>
-            <div class="menu-card-desc">Rich espresso shot topped with velvety steamed milk and a thick layer of foam.</div>
-            <div class="menu-card-footer">
-              <span class="menu-card-price">₹160</span>
-              <button class="btn-add" onclick="addToCart('Classic Cappuccino')">Add +</button>
+        <div class="menu-track">
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop" alt="Coffee drinks selection" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Coffee · Espresso Bar</div>
+              <div class="menu-card-name">Lattes & Cappuccinos</div>
+              <div class="menu-card-desc">Silky lattes and foam-topped cappuccinos made fresh all day for your classic coffee cravings.</div>
             </div>
           </div>
-        </div>
-        <div class="menu-card reveal">
-          <div class="menu-card-img-wrap">
-            <img class="menu-card-img" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80" alt="Flat White" loading="lazy" />
-          </div>
-          <div class="menu-card-body">
-            <div class="menu-card-tag">Hot · Signature</div>
-            <div class="menu-card-name">TipTop Flat White</div>
-            <div class="menu-card-desc">Silky microfoam poured over a double ristretto — smooth, bold, and beautifully balanced.</div>
-            <div class="menu-card-footer">
-              <span class="menu-card-price">₹185</span>
-              <button class="btn-add" onclick="addToCart('TipTop Flat White')">Add +</button>
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=900&q=80&auto=format&fit=crop" alt="Americano and macchiato coffee" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Coffee · Bold Picks</div>
+              <div class="menu-card-name">Americanos & Macchiatos</div>
+              <div class="menu-card-desc">Clean americanos and rich macchiatos for guests who like their espresso bright, bold, and beautifully balanced.</div>
             </div>
           </div>
-        </div>
-        <div class="menu-card reveal">
-          <div class="menu-card-img-wrap">
-            <img class="menu-card-img" src="https://images.unsplash.com/photo-1534040385115-33dcb3acba5b?w=600&q=80" alt="Latte" loading="lazy" />
-          </div>
-          <div class="menu-card-body">
-            <div class="menu-card-tag">Hot · Classic</div>
-            <div class="menu-card-name">Café Latte</div>
-            <div class="menu-card-desc">A gentle espresso base drowned in steamed whole milk — creamy, comforting, and classic.</div>
-            <div class="menu-card-footer">
-              <span class="menu-card-price">₹170</span>
-              <button class="btn-add" onclick="addToCart('Café Latte')">Add +</button>
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=900&q=80&auto=format&fit=crop" alt="Brewed coffee options" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Coffee · Brewed</div>
+              <div class="menu-card-name">Brewed Coffee Favourites</div>
+              <div class="menu-card-desc">Fresh brewed coffee choices round out the menu with balanced flavour and easy everyday comfort.</div>
             </div>
           </div>
         </div>
@@ -805,45 +830,35 @@
     <!-- BAKERY -->
     <div class="tab-panel" id="tab-bakery">
       <div class="menu-grid">
-        <div class="menu-card reveal">
-          <div class="menu-card-img-wrap">
-            <img class="menu-card-img" src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&q=80" alt="Cookies" loading="lazy" />
-          </div>
-          <div class="menu-card-body">
-            <div class="menu-card-tag">Bakery · Cookie</div>
-            <div class="menu-card-name">Double Choco Cookie</div>
-            <div class="menu-card-desc">Chunky chocolate chip cookies baked fresh every morning — crispy edges, gooey center.</div>
-            <div class="menu-card-footer">
-              <span class="menu-card-price">₹80</span>
-              <button class="btn-add" onclick="addToCart('Double Choco Cookie')">Add +</button>
+        <div class="menu-track">
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=900&q=80&auto=format&fit=crop" alt="Sweet bakery treats" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Bakery · Sweet Treats</div>
+              <div class="menu-card-name">Muffins, Cookies & Brownies</div>
+              <div class="menu-card-desc">A rotating sweet counter filled with muffins, cookies, brownies, cakes, and soft cinnamon rolls.</div>
             </div>
           </div>
-        </div>
-        <div class="menu-card reveal">
-          <div class="menu-card-img-wrap">
-            <img class="menu-card-img" src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80" alt="Croissant" loading="lazy" />
-          </div>
-          <div class="menu-card-body">
-            <div class="menu-card-tag">Bakery · Pastry</div>
-            <div class="menu-card-name">Butter Croissant</div>
-            <div class="menu-card-desc">Flaky, golden, buttery layers — our croissants are laminated to perfection and baked to order.</div>
-            <div class="menu-card-footer">
-              <span class="menu-card-price">₹120</span>
-              <button class="btn-add" onclick="addToCart('Butter Croissant')">Add +</button>
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop" alt="Croissants and breakfast pastries" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Bakery · Breakfast Bakes</div>
+              <div class="menu-card-name">Croissants, Bagels & Scones</div>
+              <div class="menu-card-desc">Morning staples including buttery croissants, hearty bagels, and tender scones baked for a fresh start.</div>
             </div>
           </div>
-        </div>
-        <div class="menu-card reveal">
-          <div class="menu-card-img-wrap">
-            <img class="menu-card-img" src="https://images.unsplash.com/photo-1488477304112-4944851de03d?w=600&q=80" alt="Cinnamon Roll" loading="lazy" />
-          </div>
-          <div class="menu-card-body">
-            <div class="menu-card-tag">Bakery · Sweet</div>
-            <div class="menu-card-name">Cinnamon Swirl</div>
-            <div class="menu-card-desc">Soft dough swirled with cinnamon sugar, glazed with cream cheese icing. Pure indulgence.</div>
-            <div class="menu-card-footer">
-              <span class="menu-card-price">₹140</span>
-              <button class="btn-add" onclick="addToCart('Cinnamon Swirl')">Add +</button>
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=900&q=80&auto=format&fit=crop" alt="Danish pastries and cakes" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Bakery · Oven Fresh</div>
+              <div class="menu-card-name">Cakes, Danishes & More</div>
+              <div class="menu-card-desc">From celebration cakes to flaky danishes, the bakery case stays stocked with comforting grab-and-go favourites.</div>
             </div>
           </div>
         </div>
@@ -853,45 +868,35 @@
     <!-- COLD DRINKS -->
     <div class="tab-panel" id="tab-cold">
       <div class="menu-grid">
-        <div class="menu-card reveal">
-          <div class="menu-card-img-wrap">
-            <img class="menu-card-img" src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=600&q=80" alt="Iced Latte" loading="lazy" />
-          </div>
-          <div class="menu-card-body">
-            <div class="menu-card-tag">Cold · Espresso</div>
-            <div class="menu-card-name">Iced Vanilla Latte</div>
-            <div class="menu-card-desc">Cold milk over ice, vanilla syrup, and a double shot of espresso poured on top — refreshing bliss.</div>
-            <div class="menu-card-footer">
-              <span class="menu-card-price">₹200</span>
-              <button class="btn-add" onclick="addToCart('Iced Vanilla Latte')">Add +</button>
+        <div class="menu-track">
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=900&q=80&auto=format&fit=crop" alt="Iced espresso drinks" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Cold Drinks · Iced Coffee</div>
+              <div class="menu-card-name">Iced Latte, Mocha & Americano</div>
+              <div class="menu-card-desc">Espresso-based iced coffees served chilled and smooth, from creamy lattes to mochas and crisp Americanos.</div>
             </div>
           </div>
-        </div>
-        <div class="menu-card reveal">
-          <div class="menu-card-img-wrap">
-            <img class="menu-card-img" src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&q=80" alt="Frappe" loading="lazy" />
-          </div>
-          <div class="menu-card-body">
-            <div class="menu-card-tag">Cold · Blended</div>
-            <div class="menu-card-name">Mocha Frappe</div>
-            <div class="menu-card-desc">Blended ice, espresso, chocolate and topped with whipped cream — the ultimate cool treat.</div>
-            <div class="menu-card-footer">
-              <span class="menu-card-price">₹220</span>
-              <button class="btn-add" onclick="addToCart('Mocha Frappe')">Add +</button>
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=900&q=80&auto=format&fit=crop" alt="Blended frappes and cold drinks" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Cold Drinks · Blended</div>
+              <div class="menu-card-name">Frappés & Cold Brews</div>
+              <div class="menu-card-desc">Blended frappés and slow-steeped cold brews bring a cooler, richer side to the all-day drinks menu.</div>
             </div>
           </div>
-        </div>
-        <div class="menu-card reveal">
-          <div class="menu-card-img-wrap">
-            <img class="menu-card-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Cold Brew" loading="lazy" />
-          </div>
-          <div class="menu-card-body">
-            <div class="menu-card-tag">Cold · Slow Brew</div>
-            <div class="menu-card-name">Signature Cold Brew</div>
-            <div class="menu-card-desc">Steeped for 16 hours, served over ice — smooth, low-acid, naturally sweet cold brew.</div>
-            <div class="menu-card-footer">
-              <span class="menu-card-price">₹195</span>
-              <button class="btn-add" onclick="addToCart('Signature Cold Brew')">Add +</button>
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=900&q=80&auto=format&fit=crop" alt="Iced teas and smoothies" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Cold Drinks · Refreshers</div>
+              <div class="menu-card-name">Iced Teas & Fruit Smoothies</div>
+              <div class="menu-card-desc">Refreshing iced teas and fruit-based smoothies add bright, juicy choices beyond the coffee bar.</div>
             </div>
           </div>
         </div>
@@ -899,10 +904,53 @@
     </div>
   </section>
 
+  <!-- SOCIAL -->
+  <section id="social">
+    <div class="social-header reveal">
+      <div class="section-divider"><span>Follow Us</span></div>
+      <h2 class="section-title">Life at TipTop</h2>
+      <p class="section-sub">Tag us in your TipTop moments. We share the love every day on Instagram & Facebook.</p>
+    </div>
+
+    <div class="social-feed reveal">
+      <div class="social-tile">
+        <img src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Coffee%20Cup.jpg?raw=true" alt="Tip Top Cafe Coffee Cup" loading="lazy" />
+        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="social-tile">
+        <img src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/PaperBag.jpg?raw=true" alt="Tip Top Cafe Paper Bag" loading="lazy" />
+        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="social-tile">
+        <img src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Clothing.jpg?raw=true" alt="Tip Top Cafe Staff" loading="lazy" />
+        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="social-tile">
+        <img src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Signage%20Mockup.jpg?raw=true" alt="Tip Top Cafe Signage" loading="lazy" />
+        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+    </div>
+
+    <div class="social-links reveal">
+      <a class="social-link" href="#" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @TipTopCafe
+      </a>
+      <a class="social-link" href="#" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        TipTopCafe
+      </a>
+      <a class="social-link" href="#" target="_blank">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.89-7.46L5.54 22H2.43l7.24-8.28L2 2h6.4l4.42 6.75L18.9 2zm-1.09 18h1.72L7.47 3.9H5.63L17.81 20z"/></svg>
+        @TipTopCafe
+      </a>
+    </div>
+  </section>
+
   <!-- QUOTE BAND -->
   <div class="quote-band">
-    <blockquote>"Life is too short for bad coffee — come find the good kind."</blockquote>
-    <cite>— The TipTop Family, Navi Mumbai</cite>
+    <blockquote>"Life is too short for bad coffee. Come find the good kind."</blockquote>
+    <cite>The TipTop Family, Navi Mumbai</cite>
   </div>
 
   <!-- CONTACT -->
@@ -910,7 +958,7 @@
     <div class="reveal">
       <div class="section-divider"><span>Contact Us</span></div>
       <h2 class="section-title">Come Visit Us</h2>
-      <p class="section-sub" style="margin-bottom:40px;">We'd love to see you in person. Or drop us a message — we'll get back to you before your next cup is ready.</p>
+      <p class="section-sub" style="margin-bottom:40px;">We'd love to see you in person. Or drop us a message, we'll get back to you before your next cup is ready.</p>
 
       <div class="contact-info-block">
         <div class="contact-icon">
@@ -978,53 +1026,12 @@
     </div>
   </section>
 
-  <!-- SOCIAL -->
-  <section id="social">
-    <div class="social-header reveal">
-      <div class="section-divider"><span>Follow Us</span></div>
-      <h2 class="section-title">Life at TipTop</h2>
-      <p class="section-sub">Tag us in your TipTop moments. We share the love every day on Instagram & Facebook.</p>
-    </div>
-
-    <div class="social-feed reveal">
-      <div class="social-tile">
-        <img src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Coffee%20Cup.jpg?raw=true" alt="Tip Top Cafe Coffee Cup" loading="lazy" />
-        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
-      </div>
-      <div class="social-tile">
-        <img src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/PaperBag.jpg?raw=true" alt="Tip Top Cafe Paper Bag" loading="lazy" />
-        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
-      </div>
-      <div class="social-tile">
-        <img src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Clothing.jpg?raw=true" alt="Tip Top Cafe Staff" loading="lazy" />
-        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
-      </div>
-      <div class="social-tile">
-        <img src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Signage%20Mockup.jpg?raw=true" alt="Tip Top Cafe Signage" loading="lazy" />
-        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
-      </div>
-    </div>
-
-    <div class="social-links reveal">
-      <a class="social-link" href="#" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        @TipTopCafe
-      </a>
-      <a class="social-link" href="#" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        TipTopCafe
-      </a>
-      <a class="social-link" href="#" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.76a4.85 4.85 0 01-1.02-.07z"/></svg>
-        TipTopCafe
-      </a>
-    </div>
-  </section>
-
   <!-- FOOTER -->
   <footer>
     <div>
-      <div class="footer-logo">Tip<span>Top</span>Cafe</div>
+      <div class="footer-logo">
+        <img src="https://raw.githubusercontent.com/Anonymous1104/TipTopCafe/fa8329697ac2aaf3589eb75020eb9d732d988fc7/assets/New%20White%20Logo.svg" alt="Tip Top Cafe" />
+      </div>
       <div class="footer-tagline">Crafted with love in Navi Mumbai ☕</div>
     </div>
     <div class="footer-copy">© 2025 TipTop Cafe · All rights reserved · Vashi, Navi Mumbai</div>
@@ -1034,23 +1041,16 @@
   <div id="toast"></div>
 
   <script>
-    // Tab switching
     function switchTab(name, btn) {
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
-      document.getElementById('tab-' + name).classList.add('active');
+      const panel = document.getElementById('tab-' + name);
+      panel.classList.add('active');
       btn.classList.add('active');
+      const track = panel.querySelector('.menu-track');
+      if (track) prepareMenuTrack(track);
     }
 
-    // Add to cart toast
-    function addToCart(name) {
-      const t = document.getElementById('toast');
-      t.textContent = '✓  ' + name + ' added to your order!';
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2400);
-    }
-
-    // Form submit
     function handleForm(e) {
       e.preventDefault();
       const t = document.getElementById('toast');
@@ -1060,7 +1060,6 @@
       e.target.reset();
     }
 
-    // Scroll reveal
     const revealEls = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1072,7 +1071,51 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));
 
-    // Nav scroll effect
+    function prepareMenuTrack(track) {
+      if (!track.dataset.duplicated) {
+        const cards = Array.from(track.children);
+        cards.forEach(card => {
+          track.appendChild(card.cloneNode(true));
+        });
+        track.dataset.duplicated = 'true';
+      }
+
+      const originalCount = track.children.length / 2;
+      const originalCards = Array.from(track.children).slice(0, originalCount);
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      const scrollDistance = originalCards.reduce((total, card) => {
+        return total + card.getBoundingClientRect().width;
+      }, 0) + gap * originalCards.length;
+
+      track.style.setProperty('--scroll-distance', `${scrollDistance}px`);
+    }
+
+    const activeTrack = document.querySelector('.tab-panel.active .menu-track');
+    if (activeTrack) prepareMenuTrack(activeTrack);
+
+    window.addEventListener('resize', () => {
+      const currentTrack = document.querySelector('.tab-panel.active .menu-track');
+      if (currentTrack) prepareMenuTrack(currentTrack);
+    });
+
+    document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
+      anchor.addEventListener('click', (event) => {
+        const targetId = anchor.getAttribute('href');
+        const target = targetId ? document.querySelector(targetId) : null;
+
+        if (!target) return;
+
+        event.preventDefault();
+        const navHeight = document.querySelector('nav').offsetHeight;
+        const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+
+        window.scrollTo({
+          top,
+          behavior: 'smooth'
+        });
+      });
+    });
+
     window.addEventListener('scroll', () => {
       const nav = document.querySelector('nav');
       nav.style.boxShadow = window.scrollY > 40 ? '0 4px 30px rgba(42,26,14,0.12)' : 'none';
