@@ -364,7 +364,7 @@
     }
     .menu-tab:hover { color: var(--red); }
     .menu-note {
-      margin: 24px auto 0;
+      margin: 36px auto 0;
       max-width: 560px;
       text-align: center;
       font-size: 0.88rem;
@@ -608,18 +608,41 @@
       border-top: 3px solid rgba(184,44,44,0.16);
       box-shadow: 0 18px 40px rgba(42,26,14,0.08);
     }
-    .testimonial-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      line-height: 1.7;
-      color: var(--text-mid);
+    .testimonial-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       margin-bottom: 18px;
+    }
+    .testimonial-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(184,44,44,0.18);
+      flex-shrink: 0;
+    }
+    .testimonial-author-wrap {
+      min-width: 0;
     }
     .testimonial-author {
       font-size: 0.76rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--red);
+      display: block;
+    }
+    .testimonial-role {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+    .testimonial-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: var(--text-mid);
+      margin-bottom: 0;
     }
 
     /* ──────────── QUOTE BAND ──────────── */
@@ -855,6 +878,9 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ──────────── RESPONSIVE ──────────── */
+    @media (max-width: 1200px) {
+      .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+    }
     @media (max-width: 900px) {
       nav { padding: 14px 24px; }
       .nav-logo img { height: 48px; }
@@ -864,8 +890,8 @@
       .about-img-main { top: 18px; }
       #order, #social, #app-download, #why-tiptop, #testimonials { padding: 70px 30px; }
       .app-download-inner,
-      .why-grid,
-      .testimonials-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
       .social-feed { grid-template-columns: repeat(2, 1fr); }
       .hero-content { padding: 0 30px; }
       footer { flex-direction: column; text-align: center; padding: 28px 30px; }
@@ -891,7 +917,7 @@
       }
       .menu-note {
         font-size: 0.82rem;
-        margin-top: 18px;
+        margin-top: 22px;
       }
       .app-download-actions { flex-direction: column; }
       .store-btn { width: 100%; }
@@ -900,6 +926,12 @@
       .footer-logo img { height: 44px; }
       .menu-card {
         flex-basis: min(82vw, 320px);
+      }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonial-card { padding: 22px 18px; }
+      .testimonial-avatar {
+        width: 42px;
+        height: 42px;
       }
       .menu-grid:hover .menu-track {
         animation-play-state: running;
@@ -996,8 +1028,6 @@
       <button class="menu-tab" onclick="switchTab('bakery', this)">🥐 Bakery</button>
       <button class="menu-tab" onclick="switchTab('cold', this)">🧋 Cold Drinks</button>
     </div>
-
-    <p class="menu-note reveal"><strong>Order via the Tip Top app</strong> for pickup and delivery, then drop by for the full cafe experience whenever you like.</p>
 
     <!-- COFFEE -->
     <div class="tab-panel active" id="tab-coffee">
@@ -1112,6 +1142,8 @@
         </div>
       </div>
     </div>
+
+    <p class="menu-note reveal"><strong>Order via the Tip Top app</strong> for pickup and delivery, then drop by for the full cafe experience whenever you like.</p>
   </section>
 
   <!-- APP DOWNLOAD -->
@@ -1181,24 +1213,54 @@
     </div>
     <div class="testimonials-grid reveal">
       <article class="testimonial-card">
+        <div class="testimonial-top">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Rhea profile photo" loading="lazy" />
+          <div class="testimonial-author-wrap">
+            <span class="testimonial-author">Rhea · Vashi</span>
+            <div class="testimonial-role">Morning cappuccino regular</div>
+          </div>
+        </div>
         <p class="testimonial-quote">"Their cappuccino is one of those orders you think about again later in the day."</p>
-        <div class="testimonial-author">Rhea · Vashi</div>
       </article>
       <article class="testimonial-card">
+        <div class="testimonial-top">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Karan profile photo" loading="lazy" />
+          <div class="testimonial-author-wrap">
+            <span class="testimonial-author">Karan · Sanpada</span>
+            <div class="testimonial-role">Weekend pastry fan</div>
+          </div>
+        </div>
         <p class="testimonial-quote">"I came in for coffee once and now the croissants are part of my Saturday routine."</p>
-        <div class="testimonial-author">Karan · Sanpada</div>
       </article>
       <article class="testimonial-card">
+        <div class="testimonial-top">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Mitali profile photo" loading="lazy" />
+          <div class="testimonial-author-wrap">
+            <span class="testimonial-author">Mitali · Nerul</span>
+            <div class="testimonial-role">Quick pickup commuter</div>
+          </div>
+        </div>
         <p class="testimonial-quote">"Pickup is actually fast, which matters a lot when you are grabbing breakfast before work."</p>
-        <div class="testimonial-author">Mitali · Nerul</div>
       </article>
       <article class="testimonial-card">
+        <div class="testimonial-top">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/men/51.jpg" alt="Aditya profile photo" loading="lazy" />
+          <div class="testimonial-author-wrap">
+            <span class="testimonial-author">Aditya · Kopar Khairane</span>
+            <div class="testimonial-role">Neighbourhood cafe loyalist</div>
+          </div>
+        </div>
         <p class="testimonial-quote">"It feels like a neighbourhood cafe in the best way. Easy, warm, and never trying too hard."</p>
-        <div class="testimonial-author">Aditya · Kopar Khairane</div>
       </article>
       <article class="testimonial-card">
+        <div class="testimonial-top">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/women/22.jpg" alt="Sneha profile photo" loading="lazy" />
+          <div class="testimonial-author-wrap">
+            <span class="testimonial-author">Sneha · Seawoods</span>
+            <div class="testimonial-role">Cold coffee favourite</div>
+          </div>
+        </div>
         <p class="testimonial-quote">"The cold coffee and brownies have rescued more than one long afternoon for me."</p>
-        <div class="testimonial-author">Sneha · Seawoods</div>
       </article>
     </div>
   </section>
