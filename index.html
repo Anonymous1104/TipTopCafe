@@ -363,6 +363,18 @@
       border-bottom-color: var(--red);
     }
     .menu-tab:hover { color: var(--red); }
+    .menu-note {
+      margin: 24px auto 0;
+      max-width: 560px;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+    .menu-note strong {
+      color: var(--red-dark);
+      font-weight: 500;
+    }
     .menu-grid {
       overflow: hidden;
       width: 100%;
@@ -428,6 +440,187 @@
     }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
+
+    #app-download {
+      padding: 90px 80px;
+      background:
+        linear-gradient(135deg, rgba(139,30,30,0.96) 0%, rgba(74,44,20,0.96) 100%),
+        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      color: var(--cream-light);
+    }
+    .app-download-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 42px;
+      align-items: center;
+    }
+    .app-download-copy .section-divider span {
+      color: var(--gold);
+    }
+    .app-download-copy .section-divider::before,
+    .app-download-copy .section-divider::after {
+      background: var(--gold);
+      opacity: 0.28;
+    }
+    .app-download-copy .section-title {
+      color: var(--cream-light);
+      margin-bottom: 18px;
+      max-width: 620px;
+    }
+    .app-download-copy p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: rgba(253,248,242,0.86);
+      max-width: 620px;
+    }
+    .app-download-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 185px;
+      padding: 14px 24px;
+      border: 1px solid rgba(253,248,242,0.28);
+      background: rgba(253,248,242,0.08);
+      color: var(--cream-light);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      transition: transform 0.25s, background 0.25s, border-color 0.25s;
+    }
+    .store-btn:hover {
+      transform: translateY(-3px);
+      background: rgba(253,248,242,0.14);
+      border-color: rgba(253,248,242,0.5);
+    }
+    .app-download-panel {
+      background: rgba(253,248,242,0.1);
+      border: 1px solid rgba(253,248,242,0.16);
+      padding: 28px;
+      backdrop-filter: blur(8px);
+    }
+    .app-download-panel h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--cream-light);
+      margin-bottom: 16px;
+    }
+    .app-feature-list {
+      display: grid;
+      gap: 14px;
+    }
+    .app-feature-item {
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(253,248,242,0.12);
+    }
+    .app-feature-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .app-feature-label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .app-feature-text {
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: rgba(253,248,242,0.84);
+    }
+
+    #why-tiptop {
+      padding: 78px 80px;
+      background: var(--cream-light);
+    }
+    .why-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .why-header .section-sub {
+      margin: 0 auto;
+      text-align: center;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .why-card {
+      background: #fffaf4;
+      border: 1px solid rgba(184,44,44,0.1);
+      padding: 30px 28px;
+      box-shadow: 0 18px 40px rgba(42,26,14,0.07);
+    }
+    .why-card-kicker {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+    .why-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+    .why-card-text {
+      color: var(--text-mid);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    #testimonials {
+      padding: 90px 80px;
+      background: var(--cream-dark);
+    }
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 46px;
+    }
+    .testimonials-header .section-sub {
+      margin: 0 auto;
+      text-align: center;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+    .testimonial-card {
+      background: var(--cream-light);
+      padding: 26px 22px;
+      border-top: 3px solid rgba(184,44,44,0.16);
+      box-shadow: 0 18px 40px rgba(42,26,14,0.08);
+    }
+    .testimonial-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: var(--text-mid);
+      margin-bottom: 18px;
+    }
+    .testimonial-author {
+      font-size: 0.76rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+    }
 
     /* ──────────── QUOTE BAND ──────────── */
     .quote-band {
@@ -669,7 +862,10 @@
       #about, #contact { grid-template-columns: 1fr; padding: 70px 30px; }
       .about-images { height: 300px; }
       .about-img-main { top: 18px; }
-      #order, #social { padding: 70px 30px; }
+      #order, #social, #app-download, #why-tiptop, #testimonials { padding: 70px 30px; }
+      .app-download-inner,
+      .why-grid,
+      .testimonials-grid { grid-template-columns: 1fr; }
       .social-feed { grid-template-columns: repeat(2, 1fr); }
       .hero-content { padding: 0 30px; }
       footer { flex-direction: column; text-align: center; padding: 28px 30px; }
@@ -683,10 +879,22 @@
       .nav-logo img { height: 44px; }
       .nav-links { display: none; }
       .about-img-main { top: 14px; }
+      .btn-primary, .btn-outline {
+        padding: 12px 24px;
+        font-size: 0.74rem;
+        letter-spacing: 1.1px;
+        width: fit-content;
+      }
       .menu-tab {
         flex: 1 1 calc(50% - 8px);
         padding: 12px 18px;
       }
+      .menu-note {
+        font-size: 0.82rem;
+        margin-top: 18px;
+      }
+      .app-download-actions { flex-direction: column; }
+      .store-btn { width: 100%; }
       .social-links { flex-direction: column; }
       .social-link { justify-content: center; width: 100%; }
       .footer-logo img { height: 44px; }
@@ -788,6 +996,8 @@
       <button class="menu-tab" onclick="switchTab('bakery', this)">🥐 Bakery</button>
       <button class="menu-tab" onclick="switchTab('cold', this)">🧋 Cold Drinks</button>
     </div>
+
+    <p class="menu-note reveal"><strong>Order via the Tip Top app</strong> for pickup and delivery, then drop by for the full cafe experience whenever you like.</p>
 
     <!-- COFFEE -->
     <div class="tab-panel active" id="tab-coffee">
@@ -901,6 +1111,95 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- APP DOWNLOAD -->
+  <section id="app-download">
+    <div class="app-download-inner reveal">
+      <div class="app-download-copy">
+        <div class="section-divider"><span>Download the App</span></div>
+        <h2 class="section-title">Your next coffee run can start before you leave home.</h2>
+        <p>Skip the queue, place pickup orders in a few taps, and keep your regulars saved for mornings that need to move fast. The Tip Top app makes ordering feel as easy as your usual.</p>
+        <div class="app-download-actions">
+          <a href="#" class="store-btn">Download on App Store</a>
+          <a href="#" class="store-btn">Get it on Google Play</a>
+        </div>
+      </div>
+      <div class="app-download-panel">
+        <h3>Why order in the app?</h3>
+        <div class="app-feature-list">
+          <div class="app-feature-item">
+            <span class="app-feature-label">Order Ahead</span>
+            <div class="app-feature-text">Choose your drinks and bakes before you arrive so pickup feels quick and seamless.</div>
+          </div>
+          <div class="app-feature-item">
+            <span class="app-feature-label">Pickup or Delivery</span>
+            <div class="app-feature-text">Use the same menu for easy pickup runs or relaxed at-home coffee cravings.</div>
+          </div>
+          <div class="app-feature-item">
+            <span class="app-feature-label">Your Favourites Saved</span>
+            <div class="app-feature-text">Keep your go-to orders ready for busy weekdays, weekend treats, and everything in between.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY TIP TOP -->
+  <section id="why-tiptop">
+    <div class="why-header reveal">
+      <div class="section-divider"><span>Why Tip Top</span></div>
+      <h2 class="section-title">Made for everyday regulars and slow coffee people alike.</h2>
+      <p class="section-sub">We keep the experience simple: fresh coffee, warm bakes, and ordering that fits the pace of your day.</p>
+    </div>
+    <div class="why-grid reveal">
+      <article class="why-card">
+        <div class="why-card-kicker">01</div>
+        <h3 class="why-card-title">Fresh Daily</h3>
+        <p class="why-card-text">Coffee is brewed through the day and the bakery counter is stocked in fresh batches, so the menu feels lively from morning to evening.</p>
+      </article>
+      <article class="why-card">
+        <div class="why-card-kicker">02</div>
+        <h3 class="why-card-title">Comfort Bakes</h3>
+        <p class="why-card-text">From soft cinnamon rolls to buttery croissants, the bakery side is built around familiar, satisfying favourites people come back for.</p>
+      </article>
+      <article class="why-card">
+        <div class="why-card-kicker">03</div>
+        <h3 class="why-card-title">Fast Pickup</h3>
+        <p class="why-card-text">The app makes pickup easy for office breaks, quick errands, and those mornings when you already know exactly what you want.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="testimonials-header reveal">
+      <div class="section-divider"><span>What Guests Say</span></div>
+      <h2 class="section-title">The kind of place people end up telling their friends about.</h2>
+      <p class="section-sub">A few notes that sound like the conversations we imagine happening after a really good cup.</p>
+    </div>
+    <div class="testimonials-grid reveal">
+      <article class="testimonial-card">
+        <p class="testimonial-quote">"Their cappuccino is one of those orders you think about again later in the day."</p>
+        <div class="testimonial-author">Rhea · Vashi</div>
+      </article>
+      <article class="testimonial-card">
+        <p class="testimonial-quote">"I came in for coffee once and now the croissants are part of my Saturday routine."</p>
+        <div class="testimonial-author">Karan · Sanpada</div>
+      </article>
+      <article class="testimonial-card">
+        <p class="testimonial-quote">"Pickup is actually fast, which matters a lot when you are grabbing breakfast before work."</p>
+        <div class="testimonial-author">Mitali · Nerul</div>
+      </article>
+      <article class="testimonial-card">
+        <p class="testimonial-quote">"It feels like a neighbourhood cafe in the best way. Easy, warm, and never trying too hard."</p>
+        <div class="testimonial-author">Aditya · Kopar Khairane</div>
+      </article>
+      <article class="testimonial-card">
+        <p class="testimonial-quote">"The cold coffee and brownies have rescued more than one long afternoon for me."</p>
+        <div class="testimonial-author">Sneha · Seawoods</div>
+      </article>
     </div>
   </section>
 
