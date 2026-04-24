@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tip Top Cafe Navi Mumbai</title>
   <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/Anonymous1104/TipTopCafe/63db59693848bd1fddd2a6a3f62faef4066d7f1b/assets/Logo%20Mark.svg" />
+  <link rel="preload" as="image" href="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Clothing.jpg?raw=true" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -68,6 +69,54 @@
       width: auto;
       display: block;
     }
+    .nav-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(184, 44, 44, 0.18);
+      background: rgba(253, 248, 242, 0.88);
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+    }
+    .nav-toggle:hover {
+      background: rgba(184, 44, 44, 0.08);
+      border-color: rgba(184, 44, 44, 0.4);
+      color: var(--red);
+    }
+    .nav-toggle-line {
+      width: 18px;
+      height: 2px;
+      background: currentColor;
+      display: block;
+      position: relative;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .nav-toggle-line::before,
+    .nav-toggle-line::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: currentColor;
+      transition: transform 0.25s ease, top 0.25s ease, bottom 0.25s ease;
+    }
+    .nav-toggle-line::before { top: -6px; }
+    .nav-toggle-line::after { bottom: -6px; }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-line {
+      background: transparent;
+    }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-line::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-line::after {
+      bottom: 0;
+      transform: rotate(-45deg);
+    }
     .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a {
       font-family: 'DM Sans', sans-serif;
@@ -90,6 +139,63 @@
     }
     .nav-links a:hover { color: var(--red); }
     .nav-links a:hover::after { width: 100%; }
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 76px;
+      left: 16px;
+      right: 16px;
+      z-index: 99;
+      background: rgba(253, 248, 242, 0.97);
+      border: 1px solid rgba(184, 44, 44, 0.14);
+      box-shadow: 0 22px 55px rgba(42, 26, 14, 0.16);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transform: translateY(-14px);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .mobile-nav.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .mobile-nav ul {
+      list-style: none;
+      display: grid;
+      gap: 4px;
+      padding: 12px;
+    }
+    .mobile-nav a {
+      display: block;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      background: rgba(245, 237, 224, 0.72);
+      transition: background 0.2s, color 0.2s;
+    }
+    .mobile-nav a:hover {
+      background: rgba(184, 44, 44, 0.1);
+      color: var(--red);
+    }
+    .mobile-nav-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(42, 26, 14, 0.22);
+      z-index: 98;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .mobile-nav-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
     /* ──────────── HERO ──────────── */
     #hero {
@@ -102,12 +208,21 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Clothing.jpg?raw=true');
-      background-size: cover;
-      background-position: center;
+      background: linear-gradient(135deg, rgba(74,44,20,0.5) 0%, rgba(42,26,14,0.78) 100%);
+    }
+    .hero-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
       filter: brightness(0.38);
       transform: scale(1.05);
+      opacity: 0;
+      transition: opacity 0.9s ease;
       animation: slowZoom 18s ease-in-out infinite alternate;
+    }
+    .hero-bg-img.loaded {
+      opacity: 1;
     }
     @keyframes slowZoom {
       from { transform: scale(1.05); }
@@ -855,7 +970,7 @@
     /* ──────────── TOAST ──────────── */
     #toast {
       position: fixed;
-      bottom: 30px; right: 30px;
+      bottom: 104px; right: 24px;
       background: var(--red-dark);
       color: white;
       padding: 14px 24px;
@@ -868,6 +983,150 @@
       max-width: calc(100vw - 40px);
     }
     #toast.show { opacity: 1; }
+
+    /* ──────────── CHATBOT ──────────── */
+    .chatbot {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 1001;
+    }
+    .chatbot-toggle {
+      width: 62px;
+      height: 62px;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+      color: white;
+      box-shadow: 0 20px 45px rgba(138, 30, 30, 0.28);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .chatbot-toggle:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 24px 50px rgba(138, 30, 30, 0.34);
+    }
+    .chatbot-toggle svg {
+      width: 28px;
+      height: 28px;
+      fill: currentColor;
+    }
+    .chatbot-panel {
+      position: absolute;
+      right: 0;
+      bottom: 78px;
+      width: min(360px, calc(100vw - 32px));
+      background: rgba(253, 248, 242, 0.98);
+      border: 1px solid rgba(184, 44, 44, 0.14);
+      box-shadow: 0 26px 60px rgba(42, 26, 14, 0.18);
+      opacity: 0;
+      transform: translateY(14px) scale(0.98);
+      transform-origin: bottom right;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+    .chatbot.open .chatbot-panel {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .chatbot-header {
+      padding: 16px 18px;
+      background: linear-gradient(135deg, rgba(184, 44, 44, 0.96) 0%, rgba(138, 30, 30, 0.96) 100%);
+      color: white;
+    }
+    .chatbot-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+    }
+    .chatbot-subtitle {
+      font-size: 0.8rem;
+      color: rgba(253, 248, 242, 0.84);
+      line-height: 1.5;
+    }
+    .chatbot-messages {
+      display: grid;
+      gap: 12px;
+      padding: 16px 16px 12px;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    .chatbot-message {
+      max-width: 88%;
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      box-shadow: 0 10px 24px rgba(42, 26, 14, 0.06);
+    }
+    .chatbot-message.bot {
+      background: rgba(245, 237, 224, 0.88);
+      color: var(--text-mid);
+      justify-self: start;
+    }
+    .chatbot-message.user {
+      background: var(--red);
+      color: white;
+      justify-self: end;
+    }
+    .chatbot-quick-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 0 16px 12px;
+    }
+    .chatbot-chip {
+      border: 1px solid rgba(184, 44, 44, 0.14);
+      background: white;
+      color: var(--text-mid);
+      padding: 8px 12px;
+      font-size: 0.74rem;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .chatbot-chip:hover {
+      background: rgba(184, 44, 44, 0.08);
+      color: var(--red);
+      border-color: rgba(184, 44, 44, 0.3);
+    }
+    .chatbot-form {
+      display: flex;
+      gap: 10px;
+      padding: 0 16px 16px;
+    }
+    .chatbot-input {
+      flex: 1;
+      border: 1px solid rgba(184, 44, 44, 0.14);
+      background: white;
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      outline: none;
+    }
+    .chatbot-input:focus {
+      border-color: var(--red);
+    }
+    .chatbot-send {
+      border: none;
+      background: var(--text-dark);
+      color: white;
+      padding: 0 18px;
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+    .chatbot-send:hover {
+      background: var(--red);
+    }
 
     /* ──────────── SCROLL REVEAL ──────────── */
     .reveal {
@@ -901,9 +1160,19 @@
     @media (max-width: 600px) {
       .form-row { grid-template-columns: 1fr; }
       .hero-btns { flex-direction: column; }
-      nav { padding: 12px 20px; }
+      nav {
+        padding: 12px 20px;
+        position: fixed;
+      }
       .nav-logo img { height: 44px; }
       .nav-links { display: none; }
+      .nav-toggle {
+        display: inline-flex;
+      }
+      .mobile-nav,
+      .mobile-nav-backdrop {
+        display: block;
+      }
       .about-img-main { top: 14px; }
       .btn-primary, .btn-outline {
         padding: 12px 24px;
@@ -939,8 +1208,20 @@
       #toast {
         right: 20px;
         left: 20px;
-        bottom: 20px;
+        bottom: 100px;
         max-width: none;
+      }
+      .chatbot {
+        right: 16px;
+        bottom: 16px;
+      }
+      .chatbot-toggle {
+        width: 58px;
+        height: 58px;
+      }
+      .chatbot-panel {
+        bottom: 74px;
+        width: min(100vw - 20px, 360px);
       }
     }
   </style>
@@ -958,11 +1239,25 @@
       <li><a href="#contact">Contact</a></li>
       <li><a href="#social">Follow Us</a></li>
     </ul>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open navigation menu" aria-controls="mobile-nav" aria-expanded="false">
+      <span class="nav-toggle-line"></span>
+    </button>
   </nav>
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <ul>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#order">Menu</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#social">Follow Us</a></li>
+    </ul>
+  </div>
 
   <!-- HERO -->
   <section id="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-bg">
+      <img class="hero-bg-img" id="hero-bg-img" src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Clothing.jpg?raw=true" alt="" fetchpriority="high" decoding="async" />
+    </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-tag">Est. 2018 · Navi Mumbai</div>
@@ -1401,6 +1696,32 @@
   <!-- TOAST -->
   <div id="toast"></div>
 
+  <!-- SUPPORT CHAT -->
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot-panel" id="chatbot-panel" aria-hidden="true">
+      <div class="chatbot-header">
+        <div class="chatbot-title">Tip Top Support</div>
+        <div class="chatbot-subtitle">Ask about hours, menu, pickup, delivery, or where to find us.</div>
+      </div>
+      <div class="chatbot-messages" id="chatbot-messages">
+        <div class="chatbot-message bot">Hi, I’m your Tip Top support assistant. How can I help with your next coffee run?</div>
+      </div>
+      <div class="chatbot-quick-actions">
+        <button class="chatbot-chip" type="button" data-chat-prompt="What are your opening hours?">Opening Hours</button>
+        <button class="chatbot-chip" type="button" data-chat-prompt="Where is Tip Top Cafe located?">Location</button>
+        <button class="chatbot-chip" type="button" data-chat-prompt="How can I order for pickup or delivery?">Pickup & Delivery</button>
+        <button class="chatbot-chip" type="button" data-chat-prompt="What kind of menu items do you have?">Menu Help</button>
+      </div>
+      <form class="chatbot-form" id="chatbot-form">
+        <input class="chatbot-input" id="chatbot-input" type="text" placeholder="Type your question..." aria-label="Type your support question" />
+        <button class="chatbot-send" type="submit">Send</button>
+      </form>
+    </div>
+    <button class="chatbot-toggle" id="chatbot-toggle" type="button" aria-label="Open support chat" aria-expanded="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.477 3 2 6.94 2 11.8c0 2.66 1.36 5.04 3.52 6.64L4.7 22l3.48-1.92c1.18.33 2.45.52 3.82.52 5.523 0 10-3.94 10-8.8S17.523 3 12 3zm-4.2 7.8h8.4a.8.8 0 0 1 0 1.6H7.8a.8.8 0 1 1 0-1.6zm0-3h8.4a.8.8 0 0 1 0 1.6H7.8a.8.8 0 0 1 0-1.6zm0 6h5.2a.8.8 0 0 1 0 1.6H7.8a.8.8 0 0 1 0-1.6z"/></svg>
+    </button>
+  </div>
+
   <script>
     function switchTab(name, btn) {
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -1419,6 +1740,122 @@
       t.classList.add('show');
       setTimeout(() => t.classList.remove('show'), 2800);
       e.target.reset();
+    }
+
+    const heroBgImg = document.getElementById('hero-bg-img');
+    if (heroBgImg) {
+      const revealHeroImage = () => heroBgImg.classList.add('loaded');
+      if (heroBgImg.complete) {
+        revealHeroImage();
+      } else {
+        heroBgImg.addEventListener('load', revealHeroImage, { once: true });
+      }
+    }
+
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavBackdrop = document.getElementById('mobile-nav-backdrop');
+
+    function setMobileNavState(isOpen) {
+      if (!navToggle || !mobileNav || !mobileNavBackdrop) return;
+
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+      mobileNav.classList.toggle('open', isOpen);
+      mobileNavBackdrop.classList.toggle('open', isOpen);
+      mobileNav.setAttribute('aria-hidden', String(!isOpen));
+    }
+
+    if (navToggle) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+        setMobileNavState(!isOpen);
+      });
+    }
+
+    if (mobileNavBackdrop) {
+      mobileNavBackdrop.addEventListener('click', () => setMobileNavState(false));
+    }
+
+    const chatbot = document.getElementById('chatbot');
+    const chatbotToggle = document.getElementById('chatbot-toggle');
+    const chatbotPanel = document.getElementById('chatbot-panel');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+    const chatbotForm = document.getElementById('chatbot-form');
+    const chatbotInput = document.getElementById('chatbot-input');
+
+    function appendChatMessage(text, role) {
+      if (!chatbotMessages) return;
+
+      const message = document.createElement('div');
+      message.className = `chatbot-message ${role}`;
+      message.textContent = text;
+      chatbotMessages.appendChild(message);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function getChatbotReply(input) {
+      const message = input.toLowerCase();
+
+      if (message.includes('hour') || message.includes('open') || message.includes('time')) {
+        return 'We are open Monday to Friday from 7:00 AM to 10:00 PM, and Saturday to Sunday from 8:00 AM to 11:00 PM.';
+      }
+      if (message.includes('where') || message.includes('address') || message.includes('location') || message.includes('vashi')) {
+        return 'You can find us at Shop 4, Sai Residency, Sector 17, Vashi, Navi Mumbai - 400703.';
+      }
+      if (message.includes('pickup') || message.includes('delivery') || message.includes('order') || message.includes('app')) {
+        return 'You can place your order through the Tip Top app for pickup and delivery, then visit the cafe whenever you want the full in-store experience.';
+      }
+      if (message.includes('menu') || message.includes('coffee') || message.includes('drink') || message.includes('bakery')) {
+        return 'Our menu highlights coffees, bakery favourites, and cold drinks. You can scroll to the Menu section to explore the categories in detail.';
+      }
+      if (message.includes('contact') || message.includes('phone') || message.includes('email')) {
+        return 'You can call us at +91 98765 43210 or email hello@tiptopcafe.in and the team will help you out.';
+      }
+
+      return 'I can help with hours, location, menu details, pickup, delivery, and contact info. Try asking about any of those.';
+    }
+
+    function setChatbotState(isOpen) {
+      if (!chatbot || !chatbotToggle || !chatbotPanel) return;
+
+      chatbot.classList.toggle('open', isOpen);
+      chatbotToggle.setAttribute('aria-expanded', String(isOpen));
+      chatbotPanel.setAttribute('aria-hidden', String(!isOpen));
+
+      if (isOpen && chatbotInput) {
+        chatbotInput.focus();
+      }
+    }
+
+    if (chatbotToggle) {
+      chatbotToggle.addEventListener('click', () => {
+        const isOpen = chatbot.classList.contains('open');
+        setChatbotState(!isOpen);
+      });
+    }
+
+    document.querySelectorAll('[data-chat-prompt]').forEach(button => {
+      button.addEventListener('click', () => {
+        const prompt = button.getAttribute('data-chat-prompt');
+        if (!prompt) return;
+
+        appendChatMessage(prompt, 'user');
+        appendChatMessage(getChatbotReply(prompt), 'bot');
+        setChatbotState(true);
+      });
+    });
+
+    if (chatbotForm) {
+      chatbotForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const userMessage = chatbotInput ? chatbotInput.value.trim() : '';
+
+        if (!userMessage) return;
+
+        appendChatMessage(userMessage, 'user');
+        appendChatMessage(getChatbotReply(userMessage), 'bot');
+        chatbotForm.reset();
+      });
     }
 
     const revealEls = document.querySelectorAll('.reveal');
@@ -1467,6 +1904,7 @@
         if (!target) return;
 
         event.preventDefault();
+        setMobileNavState(false);
         const navHeight = document.querySelector('nav').offsetHeight;
         const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
 
@@ -1480,6 +1918,12 @@
     window.addEventListener('scroll', () => {
       const nav = document.querySelector('nav');
       nav.style.boxShadow = window.scrollY > 40 ? '0 4px 30px rgba(42,26,14,0.12)' : 'none';
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 600) {
+        setMobileNavState(false);
+      }
     });
   </script>
 </body>
