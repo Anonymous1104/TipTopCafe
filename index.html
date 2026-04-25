@@ -3,165 +3,1928 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TipTop Cafe</title>
+  <title>Tip Top Cafe Navi Mumbai</title>
+  <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/Anonymous1104/TipTopCafe/63db59693848bd1fddd2a6a3f62faef4066d7f1b/assets/Logo%20Mark.svg" />
+  <link rel="preload" as="image" href="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Clothing.jpg?raw=true" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fdfdfd;
-      color: #333;
+    :root {
+      --cream: #f5ede0;
+      --cream-light: #fdf8f2;
+      --cream-dark: #e8d9c5;
+      --red: #b82c2c;
+      --red-dark: #8a1e1e;
+      --red-light: #d43f3f;
+      --brown: #4a2c14;
+      --brown-light: #7a4928;
+      --gold: #c8952a;
+      --text-dark: #2a1a0e;
+      --text-mid: #5a3a20;
+      --text-light: #9a7a5a;
     }
 
-    header {
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 110px;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream-light);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      width: 100%;
       position: relative;
-      height: 100vh;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    img { max-width: 100%; }
+
+    /* ──────────── NAV ──────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(245, 237, 224, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184, 44, 44, 0.15);
+      transition: all 0.3s;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-logo img {
+      height: 58px;
+      width: auto;
+      display: block;
+    }
+    .nav-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(184, 44, 44, 0.18);
+      background: rgba(253, 248, 242, 0.88);
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+    }
+    .nav-toggle:hover {
+      background: rgba(184, 44, 44, 0.08);
+      border-color: rgba(184, 44, 44, 0.4);
+      color: var(--red);
+    }
+    .nav-toggle-line {
+      width: 18px;
+      height: 2px;
+      background: currentColor;
+      display: block;
+      position: relative;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .nav-toggle-line::before,
+    .nav-toggle-line::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: currentColor;
+      transition: transform 0.25s ease, top 0.25s ease, bottom 0.25s ease;
+    }
+    .nav-toggle-line::before { top: -6px; }
+    .nav-toggle-line::after { bottom: -6px; }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-line {
+      background: transparent;
+    }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-line::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-line::after {
+      bottom: 0;
+      transform: rotate(-45deg);
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--red);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a:hover::after { width: 100%; }
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 76px;
+      left: 16px;
+      right: 16px;
+      z-index: 99;
+      background: rgba(253, 248, 242, 0.97);
+      border: 1px solid rgba(184, 44, 44, 0.14);
+      box-shadow: 0 22px 55px rgba(42, 26, 14, 0.16);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transform: translateY(-14px);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .mobile-nav.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .mobile-nav ul {
+      list-style: none;
+      display: grid;
+      gap: 4px;
+      padding: 12px;
+    }
+    .mobile-nav a {
+      display: block;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      background: rgba(245, 237, 224, 0.72);
+      transition: background 0.2s, color 0.2s;
+    }
+    .mobile-nav a:hover {
+      background: rgba(184, 44, 44, 0.1);
+      color: var(--red);
+    }
+    .mobile-nav-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(42, 26, 14, 0.22);
+      z-index: 98;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .mobile-nav-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ──────────── HERO ──────────── */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
       overflow: hidden;
     }
-
-    header video {
+    .hero-bg {
       position: absolute;
-      top: 0;
-      left: 0;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(74,44,20,0.5) 0%, rgba(42,26,14,0.78) 100%);
+    }
+    .hero-bg-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: -1;
+      object-position: center;
+      filter: brightness(0.38);
+      transform: scale(1.05);
+      opacity: 0;
+      transition: opacity 0.9s ease;
+      animation: slowZoom 18s ease-in-out infinite alternate;
+    }
+    .hero-bg-img.loaded {
+      opacity: 1;
+    }
+    @keyframes slowZoom {
+      from { transform: scale(1.05); }
+      to   { transform: scale(1.12); }
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(139,30,30,0.55) 0%, rgba(42,26,14,0.7) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 80px;
+      max-width: 760px;
+      animation: fadeUp 1.2s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 5px 14px;
+      margin-bottom: 22px;
+      animation: fadeUp 1.2s 0.2s ease both;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 900;
+      color: var(--cream-light);
+      line-height: 1.08;
+      margin-bottom: 24px;
+      animation: fadeUp 1.2s 0.35s ease both;
+    }
+    .hero-title em { color: var(--gold); font-style: italic; }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: rgba(245,237,224,0.8);
+      font-weight: 400;
+      margin-bottom: 40px;
+      max-width: 480px;
+      line-height: 1.7;
+      animation: fadeUp 1.2s 0.5s ease both;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 18px;
+      animation: fadeUp 1.2s 0.65s ease both;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 15px 38px;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--red);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--cream-light);
+    }
+    .btn-outline {
+      display: inline-block;
+      padding: 15px 38px;
+      background: transparent;
+      color: var(--cream-light);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid rgba(245,237,224,0.5);
+      transition: all 0.3s;
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
     }
 
-    nav {
+    /* ──────────── DIVIDER ──────────── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .section-divider span {
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      white-space: nowrap;
+    }
+    .section-divider::before, .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--red);
+      opacity: 0.3;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--text-light);
+      font-weight: 400;
+      line-height: 1.7;
+      max-width: 540px;
+    }
+
+    /* ──────────── ABOUT ──────────── */
+    #about {
+      padding: 110px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      background: var(--cream-light);
+    }
+    .about-images {
+      position: relative;
+      height: 520px;
+      min-width: 0;
+    }
+    .about-img-main {
+      position: absolute;
+      top: 24px; left: 0;
+      width: 75%;
+      height: 80%;
+      object-fit: cover;
+      border-radius: 2px;
+      box-shadow: 16px 16px 50px rgba(42,26,14,0.2);
+    }
+    .about-img-accent {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 55%;
+      height: 50%;
+      object-fit: cover;
+      border-radius: 2px;
+      border: 6px solid var(--cream-light);
+      box-shadow: 8px 8px 30px rgba(42,26,14,0.15);
+    }
+    .about-badge {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px; height: 100px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border: 4px solid var(--cream-light);
+      z-index: 2;
+    }
+    .about-badge strong { font-size: 1.6rem; font-weight: 900; line-height: 1; }
+    .about-badge span { font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.9; text-align: center; }
+    .about-text .section-sub { margin-bottom: 32px; }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 36px;
+      border-top: 1px solid var(--cream-dark);
+      padding-top: 32px;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--red);
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    /* ──────────── MENU / ORDER ──────────── */
+    #order {
+      padding: 110px 80px;
+      background: var(--cream-dark);
+      position: relative;
+      overflow: hidden;
+    }
+    #order::before {
+      content: '"';
+      position: absolute;
+      top: -40px; right: 60px;
+      font-family: 'Playfair Display', serif;
+      font-size: 28rem;
+      color: rgba(184,44,44,0.05);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .order-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .order-header .section-sub { margin: 0 auto; text-align: center; }
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 48px;
+      border-bottom: 2px solid rgba(184,44,44,0.2);
+      flex-wrap: wrap;
+    }
+    .menu-tab {
+      padding: 12px 32px;
+      background: none;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.25s;
+    }
+    .menu-tab.active {
+      color: var(--red);
+      border-bottom-color: var(--red);
+    }
+    .menu-tab:hover { color: var(--red); }
+    .menu-note {
+      margin: 36px auto 0;
+      max-width: 560px;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+    .menu-note strong {
+      color: var(--red-dark);
+      font-weight: 500;
+    }
+    .menu-grid {
+      overflow: hidden;
+      width: 100%;
+    }
+    .menu-track {
+      display: flex;
+      align-items: stretch;
+      gap: 28px;
+      width: max-content;
+      animation: menuMarquee var(--marquee-duration, 22s) linear infinite;
+      will-change: transform;
+    }
+    .menu-grid:hover .menu-track {
+      animation-play-state: paused;
+    }
+    @keyframes menuMarquee {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(calc(-1 * var(--scroll-distance, 0px)), 0, 0); }
+    }
+    .menu-card {
+      background: var(--cream-light);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+      min-width: 0;
+      flex: 0 0 clamp(260px, 28vw, 340px);
+    }
+    .menu-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(42,26,14,0.18);
+    }
+    .menu-card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s;
+    }
+    .menu-card:hover .menu-card-img { transform: scale(1.06); }
+    .menu-card-img-wrap { overflow: hidden; }
+    .menu-card-body {
+      padding: 20px 22px 22px;
+    }
+    .menu-card-tag {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .menu-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+    .menu-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    #app-download {
+      padding: 90px 80px;
+      background:
+        linear-gradient(135deg, rgba(139,30,30,0.96) 0%, rgba(74,44,20,0.96) 100%),
+        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      color: var(--cream-light);
+    }
+    .app-download-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 42px;
+      align-items: center;
+    }
+    .app-download-copy .section-divider span {
+      color: var(--gold);
+    }
+    .app-download-copy .section-divider::before,
+    .app-download-copy .section-divider::after {
+      background: var(--gold);
+      opacity: 0.28;
+    }
+    .app-download-copy .section-title {
+      color: var(--cream-light);
+      margin-bottom: 18px;
+      max-width: 620px;
+    }
+    .app-download-copy p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: rgba(253,248,242,0.86);
+      max-width: 620px;
+    }
+    .app-download-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 185px;
+      padding: 14px 24px;
+      border: 1px solid rgba(253,248,242,0.28);
+      background: rgba(253,248,242,0.08);
+      color: var(--cream-light);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      transition: transform 0.25s, background 0.25s, border-color 0.25s;
+    }
+    .store-btn:hover {
+      transform: translateY(-3px);
+      background: rgba(253,248,242,0.14);
+      border-color: rgba(253,248,242,0.5);
+    }
+    .app-download-panel {
+      background: rgba(253,248,242,0.1);
+      border: 1px solid rgba(253,248,242,0.16);
+      padding: 28px;
+      backdrop-filter: blur(8px);
+    }
+    .app-download-panel h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--cream-light);
+      margin-bottom: 16px;
+    }
+    .app-feature-list {
+      display: grid;
+      gap: 14px;
+    }
+    .app-feature-item {
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(253,248,242,0.12);
+    }
+    .app-feature-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .app-feature-label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .app-feature-text {
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: rgba(253,248,242,0.84);
+    }
+
+    #why-tiptop {
+      padding: 78px 80px;
+      background: var(--cream-light);
+    }
+    .why-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .why-header .section-sub {
+      margin: 0 auto;
+      text-align: center;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .why-card {
+      background: #fffaf4;
+      border: 1px solid rgba(184,44,44,0.1);
+      padding: 30px 28px;
+      box-shadow: 0 18px 40px rgba(42,26,14,0.07);
+    }
+    .why-card-kicker {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+    .why-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+    .why-card-text {
+      color: var(--text-mid);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    #testimonials {
+      padding: 90px 80px;
+      background: var(--cream-dark);
+    }
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 46px;
+    }
+    .testimonials-header .section-sub {
+      margin: 0 auto;
+      text-align: center;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+    .testimonial-card {
+      background: var(--cream-light);
+      padding: 26px 22px;
+      border-top: 3px solid rgba(184,44,44,0.16);
+      box-shadow: 0 18px 40px rgba(42,26,14,0.08);
+    }
+    .testimonial-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .testimonial-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(184,44,44,0.18);
+      flex-shrink: 0;
+    }
+    .testimonial-author-wrap {
+      min-width: 0;
+    }
+    .testimonial-author {
+      font-size: 0.76rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+    }
+    .testimonial-role {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+    .testimonial-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: var(--text-mid);
+      margin-bottom: 0;
+    }
+
+    /* ──────────── QUOTE BAND ──────────── */
+    .quote-band {
+      background: var(--red-dark);
+      padding: 60px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1507133750040-4a8f57021571?w=1400&q=60');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.1;
+    }
+    .quote-band blockquote {
+      position: relative;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-style: italic;
+      color: var(--cream-light);
+      max-width: 800px;
+      margin: 0 auto 16px;
+      line-height: 1.5;
+    }
+    .quote-band cite {
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ──────────── CONTACT ──────────── */
+    #contact {
+      padding: 110px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-info-block {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+    .contact-icon {
+      width: 48px; height: 48px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { fill: white; width: 20px; height: 20px; }
+    .contact-info-label {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 4px;
+    }
+    .contact-info-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+    .form-input, .form-textarea {
+      background: var(--cream-dark);
+      border: 1px solid transparent;
+      padding: 13px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--red); }
+    .form-textarea { resize: vertical; min-height: 130px; }
+    .form-submit {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--red-dark); }
+
+    /* ──────────── SOCIAL ──────────── */
+    #social {
+      padding: 80px 80px;
+      background: var(--cream-dark);
+      text-align: center;
+    }
+    .social-header { margin-bottom: 48px; }
+    .social-header .section-sub { margin: 0 auto; }
+    .social-feed {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 48px;
+    }
+    .social-tile {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer;
+      min-width: 0;
+    }
+    .social-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+    .social-tile:hover img { transform: scale(1.1); }
+    .social-tile-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(139,30,30,0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .social-tile:hover .social-tile-overlay { opacity: 1; }
+    .social-tile-overlay svg { fill: white; width: 32px; height: 32px; }
+    .social-links {
       display: flex;
       justify-content: center;
       gap: 20px;
-      background: rgba(0,0,0,0.5);
-      padding: 15px;
-      position: sticky;
-      top: 0;
+      flex-wrap: wrap;
     }
-
-    nav a {
-      color: white;
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 28px;
+      background: var(--text-dark);
+      color: var(--cream);
       text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s, transform 0.3s;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: background 0.25s;
+      min-width: 0;
+    }
+    .social-link:hover { background: var(--red); }
+    .social-link svg { fill: currentColor; width: 18px; height: 18px; }
+
+    /* ──────────── FOOTER ──────────── */
+    footer {
+      background: var(--text-dark);
+      color: var(--cream-dark);
+      padding: 32px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+    }
+    .footer-logo img {
+      height: 58px;
+      width: auto;
+      display: block;
+    }
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-top: 4px;
+      font-weight: 400;
+    }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      letter-spacing: 0.5px;
     }
 
-    nav a:hover {
-      color: #ffcc00;
-      transform: scale(1.1);
-    }
-
-    .hero-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      color: white;
-    }
-
-    .hero-text h1 {
-      font-size: 4rem;
-      margin: 0;
-    }
-
-    .hero-text p {
-      font-size: 1.5rem;
-    }
-
-    .content {
-      padding: 40px;
-      text-align: center;
-    }
-
-    /* Scroll-to-top button */
-    #scrollTopBtn {
+    /* ──────────── TOAST ──────────── */
+    #toast {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #ffcc00;
-      border: none;
-      padding: 15px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      display: none;
-      transition: transform 0.3s;
-    }
-
-    #scrollTopBtn:hover {
-      transform: rotate(360deg);
-    }
-
-    /* Surprise button */
-    #surpriseBtn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #ff6600;
+      bottom: 104px; right: 24px;
+      background: var(--red-dark);
       color: white;
+      padding: 14px 24px;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 999;
+      max-width: calc(100vw - 40px);
+    }
+    #toast.show { opacity: 1; }
+
+    /* ──────────── CHATBOT ──────────── */
+    .chatbot {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 1001;
+    }
+    .chatbot-toggle {
+      width: 62px;
+      height: 62px;
       border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+      color: white;
+      box-shadow: 0 20px 45px rgba(138, 30, 30, 0.28);
       cursor: pointer;
-      border-radius: 5px;
-      transition: background 0.3s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .chatbot-toggle:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 24px 50px rgba(138, 30, 30, 0.34);
+    }
+    .chatbot-toggle svg {
+      width: 28px;
+      height: 28px;
+      fill: currentColor;
+    }
+    .chatbot-panel {
+      position: absolute;
+      right: 0;
+      bottom: 78px;
+      width: min(360px, calc(100vw - 32px));
+      background: rgba(253, 248, 242, 0.98);
+      border: 1px solid rgba(184, 44, 44, 0.14);
+      box-shadow: 0 26px 60px rgba(42, 26, 14, 0.18);
+      opacity: 0;
+      transform: translateY(14px) scale(0.98);
+      transform-origin: bottom right;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+    .chatbot.open .chatbot-panel {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .chatbot-header {
+      padding: 16px 18px;
+      background: linear-gradient(135deg, rgba(184, 44, 44, 0.96) 0%, rgba(138, 30, 30, 0.96) 100%);
+      color: white;
+    }
+    .chatbot-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+    }
+    .chatbot-subtitle {
+      font-size: 0.8rem;
+      color: rgba(253, 248, 242, 0.84);
+      line-height: 1.5;
+    }
+    .chatbot-messages {
+      display: grid;
+      gap: 12px;
+      padding: 16px 16px 12px;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    .chatbot-message {
+      max-width: 88%;
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      box-shadow: 0 10px 24px rgba(42, 26, 14, 0.06);
+    }
+    .chatbot-message.bot {
+      background: rgba(245, 237, 224, 0.88);
+      color: var(--text-mid);
+      justify-self: start;
+    }
+    .chatbot-message.user {
+      background: var(--red);
+      color: white;
+      justify-self: end;
+    }
+    .chatbot-quick-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 0 16px 12px;
+    }
+    .chatbot-chip {
+      border: 1px solid rgba(184, 44, 44, 0.14);
+      background: white;
+      color: var(--text-mid);
+      padding: 8px 12px;
+      font-size: 0.74rem;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .chatbot-chip:hover {
+      background: rgba(184, 44, 44, 0.08);
+      color: var(--red);
+      border-color: rgba(184, 44, 44, 0.3);
+    }
+    .chatbot-form {
+      display: flex;
+      gap: 10px;
+      padding: 0 16px 16px;
+    }
+    .chatbot-input {
+      flex: 1;
+      border: 1px solid rgba(184, 44, 44, 0.14);
+      background: white;
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      outline: none;
+    }
+    .chatbot-input:focus {
+      border-color: var(--red);
+    }
+    .chatbot-send {
+      border: none;
+      background: var(--text-dark);
+      color: white;
+      padding: 0 18px;
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+    .chatbot-send:hover {
+      background: var(--red);
     }
 
-    #surpriseBtn:hover {
-      background: #cc3300;
+    /* ──────────── SCROLL REVEAL ──────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ──────────── RESPONSIVE ──────────── */
+    @media (max-width: 1200px) {
+      .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 900px) {
+      nav { padding: 14px 24px; }
+      .nav-logo img { height: 48px; }
+      .nav-links { gap: 20px; }
+      #about, #contact { grid-template-columns: 1fr; padding: 70px 30px; }
+      .about-images { height: 300px; }
+      .about-img-main { top: 18px; }
+      #order, #social, #app-download, #why-tiptop, #testimonials { padding: 70px 30px; }
+      .app-download-inner,
+      .why-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+      .social-feed { grid-template-columns: repeat(2, 1fr); }
+      .hero-content { padding: 0 30px; }
+      footer { flex-direction: column; text-align: center; padding: 28px 30px; }
+      .footer-logo img { height: 48px; }
+      .quote-band { padding: 50px 30px; }
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .hero-btns { flex-direction: column; }
+      nav {
+        padding: 12px 20px;
+        position: fixed;
+      }
+      .nav-logo img { height: 44px; }
+      .nav-links { display: none; }
+      .nav-toggle {
+        display: inline-flex;
+      }
+      .mobile-nav,
+      .mobile-nav-backdrop {
+        display: block;
+      }
+      .about-img-main { top: 14px; }
+      .btn-primary, .btn-outline {
+        padding: 12px 24px;
+        font-size: 0.74rem;
+        letter-spacing: 1.1px;
+        width: fit-content;
+      }
+      .menu-tab {
+        flex: 1 1 calc(50% - 8px);
+        padding: 12px 18px;
+      }
+      .menu-note {
+        font-size: 0.82rem;
+        margin-top: 22px;
+      }
+      .app-download-actions { flex-direction: column; }
+      .store-btn { width: 100%; }
+      .social-links { flex-direction: column; }
+      .social-link { justify-content: center; width: 100%; }
+      .footer-logo img { height: 44px; }
+      .menu-card {
+        flex-basis: min(82vw, 320px);
+      }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonial-card { padding: 22px 18px; }
+      .testimonial-avatar {
+        width: 42px;
+        height: 42px;
+      }
+      .menu-grid:hover .menu-track {
+        animation-play-state: running;
+      }
+      #toast {
+        right: 20px;
+        left: 20px;
+        bottom: 100px;
+        max-width: none;
+      }
+      .chatbot {
+        right: 16px;
+        bottom: 16px;
+      }
+      .chatbot-toggle {
+        width: 58px;
+        height: 58px;
+      }
+      .chatbot-panel {
+        bottom: 74px;
+        width: min(100vw - 20px, 360px);
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <video autoplay muted loop>
-      <source src="assets/Hero Video Loop.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-    <div class="hero-text">
-      <h1>Welcome to TipTop Cafe</h1>
-      <p>Where every sip feels special</p>
-    </div>
-  </header>
 
+  <!-- NAV -->
   <nav>
-    <a href="#menu">Menu</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+    <a href="#hero" class="nav-logo">
+      <img src="https://raw.githubusercontent.com/Anonymous1104/TipTopCafe/63db59693848bd1fddd2a6a3f62faef4066d7f1b/assets/Logo%20Tip%20Top%20Cafe.svg" alt="Tip Top Cafe" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#order">Menu</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#social">Follow Us</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open navigation menu" aria-controls="mobile-nav" aria-expanded="false">
+      <span class="nav-toggle-line"></span>
+    </button>
   </nav>
-
-  <div class="content">
-    <h2 id="menu">Our Menu</h2>
-    <p>Delicious coffee, pastries, and more!</p>
-
-    <h2 id="about">About Us</h2>
-    <p>TipTop Cafe is your cozy corner for relaxation and great taste.</p>
-
-    <h2 id="contact">Contact</h2>
-    <p>Reach us at hello@tiptopcafe.com</p>
-
-    <button id="surpriseBtn">Surprise Me!</button>
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <ul>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#order">Menu</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#social">Follow Us</a></li>
+    </ul>
   </div>
 
-  <button id="scrollTopBtn">↑</button>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg">
+      <img class="hero-bg-img" id="hero-bg-img" src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Clothing.jpg?raw=true" alt="" fetchpriority="high" decoding="async" />
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Est. 2018 · Navi Mumbai</div>
+      <h1 class="hero-title">Where Every<br>Sip is <em>Perfect</em></h1>
+      <p class="hero-sub">Handcrafted coffees, freshly baked pastries & cookies made with love in the heart of Navi Mumbai.</p>
+      <div class="hero-btns">
+        <a href="#order" class="btn-primary">Explore Menu</a>
+        <a href="#about" class="btn-outline">Our Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-images reveal">
+      <img class="about-img-main"
+           src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Signage%20Mockup.jpg?raw=true"
+           alt="Tip Top Cafe Signage" loading="lazy" />
+      <img class="about-img-accent"
+           src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Coffee%20Cup.jpg?raw=true"
+           alt="Tip Top Cafe Coffee Cup" loading="lazy" />
+      <div class="about-badge">
+        <strong>6+</strong>
+        <span>Years of Warmth</span>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-divider"><span>About Us</span></div>
+      <h2 class="section-title">A Corner of Warmth in Navi Mumbai</h2>
+      <p class="section-sub">
+        Born from a deep love for coffee culture and the art of baking, TipTop Cafe has been Navi Mumbai's favourite neighbourhood retreat since 2018. We believe a great cup of coffee can change your morning and a fresh-baked cookie can change your day.
+      </p>
+      <p class="section-sub" style="margin-top:16px;">
+        Every blend is sourced, every pastry is crafted, and every smile is served fresh right here on your street.
+      </p>
+      <div class="about-stats">
+        <div class="stat-item">
+          <span class="stat-num">12+</span>
+          <span class="stat-label">Coffee Blends</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">30+</span>
+          <span class="stat-label">Baked Items</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">500+</span>
+          <span class="stat-label">Happy Guests / Day</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER / MENU -->
+  <section id="order">
+    <div class="order-header reveal">
+      <div class="section-divider"><span>Our Menu</span></div>
+      <h2 class="section-title">Crafted with Passion</h2>
+      <p class="section-sub">From velvety espressos to golden croissants, everything is made fresh every single day.</p>
+    </div>
+
+    <div class="menu-tabs">
+      <button class="menu-tab active" onclick="switchTab('coffee', this)">☕ Coffee</button>
+      <button class="menu-tab" onclick="switchTab('bakery', this)">🥐 Bakery</button>
+      <button class="menu-tab" onclick="switchTab('cold', this)">🧋 Cold Drinks</button>
+    </div>
+
+    <!-- COFFEE -->
+    <div class="tab-panel active" id="tab-coffee">
+      <div class="menu-grid">
+        <div class="menu-track">
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop" alt="Coffee drinks selection" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Coffee · Espresso Bar</div>
+              <div class="menu-card-name">Lattes & Cappuccinos</div>
+              <div class="menu-card-desc">Silky lattes and foam-topped cappuccinos made fresh all day for your classic coffee cravings.</div>
+            </div>
+          </div>
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=900&q=80&auto=format&fit=crop" alt="Americano and macchiato coffee" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Coffee · Bold Picks</div>
+              <div class="menu-card-name">Americanos & Macchiatos</div>
+              <div class="menu-card-desc">Clean americanos and rich macchiatos for guests who like their espresso bright, bold, and beautifully balanced.</div>
+            </div>
+          </div>
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=900&q=80&auto=format&fit=crop" alt="Brewed coffee options" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Coffee · Brewed</div>
+              <div class="menu-card-name">Brewed Coffee Favourites</div>
+              <div class="menu-card-desc">Fresh brewed coffee choices round out the menu with balanced flavour and easy everyday comfort.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BAKERY -->
+    <div class="tab-panel" id="tab-bakery">
+      <div class="menu-grid">
+        <div class="menu-track">
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=900&q=80&auto=format&fit=crop" alt="Sweet bakery treats" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Bakery · Sweet Treats</div>
+              <div class="menu-card-name">Muffins, Cookies & Brownies</div>
+              <div class="menu-card-desc">A rotating sweet counter filled with muffins, cookies, brownies, cakes, and soft cinnamon rolls.</div>
+            </div>
+          </div>
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop" alt="Croissants and breakfast pastries" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Bakery · Breakfast Bakes</div>
+              <div class="menu-card-name">Croissants, Bagels & Scones</div>
+              <div class="menu-card-desc">Morning staples including buttery croissants, hearty bagels, and tender scones baked for a fresh start.</div>
+            </div>
+          </div>
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=900&q=80&auto=format&fit=crop" alt="Danish pastries and cakes" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Bakery · Oven Fresh</div>
+              <div class="menu-card-name">Cakes, Danishes & More</div>
+              <div class="menu-card-desc">From celebration cakes to flaky danishes, the bakery case stays stocked with comforting grab-and-go favourites.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLD DRINKS -->
+    <div class="tab-panel" id="tab-cold">
+      <div class="menu-grid">
+        <div class="menu-track">
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=900&q=80&auto=format&fit=crop" alt="Iced espresso drinks" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Cold Drinks · Iced Coffee</div>
+              <div class="menu-card-name">Iced Latte, Mocha & Americano</div>
+              <div class="menu-card-desc">Espresso-based iced coffees served chilled and smooth, from creamy lattes to mochas and crisp Americanos.</div>
+            </div>
+          </div>
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=900&q=80&auto=format&fit=crop" alt="Blended frappes and cold drinks" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Cold Drinks · Blended</div>
+              <div class="menu-card-name">Frappés & Cold Brews</div>
+              <div class="menu-card-desc">Blended frappés and slow-steeped cold brews bring a cooler, richer side to the all-day drinks menu.</div>
+            </div>
+          </div>
+          <div class="menu-card">
+            <div class="menu-card-img-wrap">
+              <img class="menu-card-img" src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=900&q=80&auto=format&fit=crop" alt="Iced teas and smoothies" loading="lazy" />
+            </div>
+            <div class="menu-card-body">
+              <div class="menu-card-tag">Cold Drinks · Refreshers</div>
+              <div class="menu-card-name">Iced Teas & Fruit Smoothies</div>
+              <div class="menu-card-desc">Refreshing iced teas and fruit-based smoothies add bright, juicy choices beyond the coffee bar.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="menu-note reveal"><strong>Order via the Tip Top app</strong> for pickup and delivery, then drop by for the full cafe experience whenever you like.</p>
+  </section>
+
+  <!-- APP DOWNLOAD -->
+  <section id="app-download">
+    <div class="app-download-inner reveal">
+      <div class="app-download-copy">
+        <div class="section-divider"><span>Download the App</span></div>
+        <h2 class="section-title">Your next coffee run can start before you leave home.</h2>
+        <p>Skip the queue, place pickup orders in a few taps, and keep your regulars saved for mornings that need to move fast. The Tip Top app makes ordering feel as easy as your usual.</p>
+        <div class="app-download-actions">
+          <a href="#" class="store-btn">Download on App Store</a>
+          <a href="#" class="store-btn">Get it on Google Play</a>
+        </div>
+      </div>
+      <div class="app-download-panel">
+        <h3>Why order in the app?</h3>
+        <div class="app-feature-list">
+          <div class="app-feature-item">
+            <span class="app-feature-label">Order Ahead</span>
+            <div class="app-feature-text">Choose your drinks and bakes before you arrive so pickup feels quick and seamless.</div>
+          </div>
+          <div class="app-feature-item">
+            <span class="app-feature-label">Pickup or Delivery</span>
+            <div class="app-feature-text">Use the same menu for easy pickup runs or relaxed at-home coffee cravings.</div>
+          </div>
+          <div class="app-feature-item">
+            <span class="app-feature-label">Your Favourites Saved</span>
+            <div class="app-feature-text">Keep your go-to orders ready for busy weekdays, weekend treats, and everything in between.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY TIP TOP -->
+  <section id="why-tiptop">
+    <div class="why-header reveal">
+      <div class="section-divider"><span>Why Tip Top</span></div>
+      <h2 class="section-title">Made for everyday regulars and slow coffee people alike.</h2>
+      <p class="section-sub">We keep the experience simple: fresh coffee, warm bakes, and ordering that fits the pace of your day.</p>
+    </div>
+    <div class="why-grid reveal">
+      <article class="why-card">
+        <div class="why-card-kicker">01</div>
+        <h3 class="why-card-title">Fresh Daily</h3>
+        <p class="why-card-text">Coffee is brewed through the day and the bakery counter is stocked in fresh batches, so the menu feels lively from morning to evening.</p>
+      </article>
+      <article class="why-card">
+        <div class="why-card-kicker">02</div>
+        <h3 class="why-card-title">Comfort Bakes</h3>
+        <p class="why-card-text">From soft cinnamon rolls to buttery croissants, the bakery side is built around familiar, satisfying favourites people come back for.</p>
+      </article>
+      <article class="why-card">
+        <div class="why-card-kicker">03</div>
+        <h3 class="why-card-title">Fast Pickup</h3>
+        <p class="why-card-text">The app makes pickup easy for office breaks, quick errands, and those mornings when you already know exactly what you want.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="testimonials-header reveal">
+      <div class="section-divider"><span>What Guests Say</span></div>
+      <h2 class="section-title">The kind of place people end up telling their friends about.</h2>
+      <p class="section-sub">A few notes that sound like the conversations we imagine happening after a really good cup.</p>
+    </div>
+    <div class="testimonials-grid reveal">
+      <article class="testimonial-card">
+        <div class="testimonial-top">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Rhea profile photo" loading="lazy" />
+          <div class="testimonial-author-wrap">
+            <span class="testimonial-author">Rhea · Vashi</span>
+            <div class="testimonial-role">Morning cappuccino regular</div>
+          </div>
+        </div>
+        <p class="testimonial-quote">"Their cappuccino is one of those orders you think about again later in the day."</p>
+      </article>
+      <article class="testimonial-card">
+        <div class="testimonial-top">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Karan profile photo" loading="lazy" />
+          <div class="testimonial-author-wrap">
+            <span class="testimonial-author">Karan · Sanpada</span>
+            <div class="testimonial-role">Weekend pastry fan</div>
+          </div>
+        </div>
+        <p class="testimonial-quote">"I came in for coffee once and now the croissants are part of my Saturday routine."</p>
+      </article>
+      <article class="testimonial-card">
+        <div class="testimonial-top">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Mitali profile photo" loading="lazy" />
+          <div class="testimonial-author-wrap">
+            <span class="testimonial-author">Mitali · Nerul</span>
+            <div class="testimonial-role">Quick pickup commuter</div>
+          </div>
+        </div>
+        <p class="testimonial-quote">"Pickup is actually fast, which matters a lot when you are grabbing breakfast before work."</p>
+      </article>
+      <article class="testimonial-card">
+        <div class="testimonial-top">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/men/51.jpg" alt="Aditya profile photo" loading="lazy" />
+          <div class="testimonial-author-wrap">
+            <span class="testimonial-author">Aditya · Kopar Khairane</span>
+            <div class="testimonial-role">Neighbourhood cafe loyalist</div>
+          </div>
+        </div>
+        <p class="testimonial-quote">"It feels like a neighbourhood cafe in the best way. Easy, warm, and never trying too hard."</p>
+      </article>
+      <article class="testimonial-card">
+        <div class="testimonial-top">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/women/22.jpg" alt="Sneha profile photo" loading="lazy" />
+          <div class="testimonial-author-wrap">
+            <span class="testimonial-author">Sneha · Seawoods</span>
+            <div class="testimonial-role">Cold coffee favourite</div>
+          </div>
+        </div>
+        <p class="testimonial-quote">"The cold coffee and brownies have rescued more than one long afternoon for me."</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- SOCIAL -->
+  <section id="social">
+    <div class="social-header reveal">
+      <div class="section-divider"><span>Follow Us</span></div>
+      <h2 class="section-title">Life at TipTop</h2>
+      <p class="section-sub">Tag us in your TipTop moments. We share the love every day on Instagram & Facebook.</p>
+    </div>
+
+    <div class="social-feed reveal">
+      <div class="social-tile">
+        <img src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Coffee%20Cup.jpg?raw=true" alt="Tip Top Cafe Coffee Cup" loading="lazy" />
+        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="social-tile">
+        <img src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/PaperBag.jpg?raw=true" alt="Tip Top Cafe Paper Bag" loading="lazy" />
+        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="social-tile">
+        <img src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Clothing.jpg?raw=true" alt="Tip Top Cafe Staff" loading="lazy" />
+        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="social-tile">
+        <img src="https://github.com/Anonymous1104/TipTopCafe/blob/main/assets/Signage%20Mockup.jpg?raw=true" alt="Tip Top Cafe Signage" loading="lazy" />
+        <div class="social-tile-overlay"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+    </div>
+
+    <div class="social-links reveal">
+      <a class="social-link" href="#" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @TipTopCafe
+      </a>
+      <a class="social-link" href="#" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        TipTopCafe
+      </a>
+      <a class="social-link" href="#" target="_blank">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.89-7.46L5.54 22H2.43l7.24-8.28L2 2h6.4l4.42 6.75L18.9 2zm-1.09 18h1.72L7.47 3.9H5.63L17.81 20z"/></svg>
+        @TipTopCafe
+      </a>
+    </div>
+  </section>
+
+  <!-- QUOTE BAND -->
+  <div class="quote-band">
+    <blockquote>"Life is too short for bad coffee. Come find the good kind."</blockquote>
+    <cite>The TipTop Family, Navi Mumbai</cite>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <div class="section-divider"><span>Contact Us</span></div>
+      <h2 class="section-title">Come Visit Us</h2>
+      <p class="section-sub" style="margin-bottom:40px;">We'd love to see you in person. Or drop us a message, we'll get back to you before your next cup is ready.</p>
+
+      <div class="contact-info-block">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Address</div>
+          <div class="contact-info-value">Shop 4, Sai Residency, Sector 17,<br>Vashi, Navi Mumbai – 400703</div>
+        </div>
+      </div>
+
+      <div class="contact-info-block">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Phone</div>
+          <div class="contact-info-value">+91 98765 43210</div>
+        </div>
+      </div>
+
+      <div class="contact-info-block">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Hours</div>
+          <div class="contact-info-value">Mon – Fri: 7:00 AM – 10:00 PM<br>Sat – Sun: 8:00 AM – 11:00 PM</div>
+        </div>
+      </div>
+
+      <div class="contact-info-block">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <div>
+          <div class="contact-info-label">Email</div>
+          <div class="contact-info-value">hello@tiptopcafe.in</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <form class="contact-form" onsubmit="handleForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" type="text" placeholder="Riya Sharma" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input class="form-input" type="tel" placeholder="+91 98765 43210" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Ask about reservations, catering, or just say hi!"></textarea>
+        </div>
+        <button class="form-submit" type="submit">Send Message →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-logo">
+        <img src="https://raw.githubusercontent.com/Anonymous1104/TipTopCafe/fa8329697ac2aaf3589eb75020eb9d732d988fc7/assets/New%20White%20Logo.svg" alt="Tip Top Cafe" />
+      </div>
+      <div class="footer-tagline">Crafted with love in Navi Mumbai ☕</div>
+    </div>
+    <div class="footer-copy">© 2025 TipTop Cafe · All rights reserved · Vashi, Navi Mumbai</div>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <!-- SUPPORT CHAT -->
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot-panel" id="chatbot-panel" aria-hidden="true">
+      <div class="chatbot-header">
+        <div class="chatbot-title">Tip Top Support</div>
+        <div class="chatbot-subtitle">Ask about hours, menu, pickup, delivery, or where to find us.</div>
+      </div>
+      <div class="chatbot-messages" id="chatbot-messages">
+        <div class="chatbot-message bot">Hi, I’m your Tip Top support assistant. How can I help with your next coffee run?</div>
+      </div>
+      <div class="chatbot-quick-actions">
+        <button class="chatbot-chip" type="button" data-chat-prompt="What are your opening hours?">Opening Hours</button>
+        <button class="chatbot-chip" type="button" data-chat-prompt="Where is Tip Top Cafe located?">Location</button>
+        <button class="chatbot-chip" type="button" data-chat-prompt="How can I order for pickup or delivery?">Pickup & Delivery</button>
+        <button class="chatbot-chip" type="button" data-chat-prompt="What kind of menu items do you have?">Menu Help</button>
+      </div>
+      <form class="chatbot-form" id="chatbot-form">
+        <input class="chatbot-input" id="chatbot-input" type="text" placeholder="Type your question..." aria-label="Type your support question" />
+        <button class="chatbot-send" type="submit">Send</button>
+      </form>
+    </div>
+    <button class="chatbot-toggle" id="chatbot-toggle" type="button" aria-label="Open support chat" aria-expanded="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.477 3 2 6.94 2 11.8c0 2.66 1.36 5.04 3.52 6.64L4.7 22l3.48-1.92c1.18.33 2.45.52 3.82.52 5.523 0 10-3.94 10-8.8S17.523 3 12 3zm-4.2 7.8h8.4a.8.8 0 0 1 0 1.6H7.8a.8.8 0 1 1 0-1.6zm0-3h8.4a.8.8 0 0 1 0 1.6H7.8a.8.8 0 0 1 0-1.6zm0 6h5.2a.8.8 0 0 1 0 1.6H7.8a.8.8 0 0 1 0-1.6z"/></svg>
+    </button>
+  </div>
 
   <script>
-    // Scroll-to-top button functionality
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-    window.onscroll = function() {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        scrollTopBtn.style.display = "block";
-      } else {
-        scrollTopBtn.style.display = "none";
-      }
-    };
-    scrollTopBtn.onclick = function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    function switchTab(name, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      const panel = document.getElementById('tab-' + name);
+      panel.classList.add('active');
+      btn.classList.add('active');
+      const track = panel.querySelector('.menu-track');
+      if (track) prepareMenuTrack(track);
+    }
 
-    // Surprise button functionality
-    const surpriseBtn = document.getElementById("surpriseBtn");
-    surpriseBtn.onclick = function() {
-      const colors = ["#ffe6e6", "#e6ffe6", "#e6f0ff", "#fff0e6", "#f9e6ff"];
-      document.body.style.background = colors[Math.floor(Math.random() * colors.length)];
-    };
+    function handleForm(e) {
+      e.preventDefault();
+      const t = document.getElementById('toast');
+      t.textContent = '✓  Message sent! We\'ll be in touch soon.';
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+      e.target.reset();
+    }
+
+    const heroBgImg = document.getElementById('hero-bg-img');
+    if (heroBgImg) {
+      const revealHeroImage = () => heroBgImg.classList.add('loaded');
+      if (heroBgImg.complete) {
+        revealHeroImage();
+      } else {
+        heroBgImg.addEventListener('load', revealHeroImage, { once: true });
+      }
+    }
+
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavBackdrop = document.getElementById('mobile-nav-backdrop');
+
+    function setMobileNavState(isOpen) {
+      if (!navToggle || !mobileNav || !mobileNavBackdrop) return;
+
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+      mobileNav.classList.toggle('open', isOpen);
+      mobileNavBackdrop.classList.toggle('open', isOpen);
+      mobileNav.setAttribute('aria-hidden', String(!isOpen));
+    }
+
+    if (navToggle) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+        setMobileNavState(!isOpen);
+      });
+    }
+
+    if (mobileNavBackdrop) {
+      mobileNavBackdrop.addEventListener('click', () => setMobileNavState(false));
+    }
+
+    const chatbot = document.getElementById('chatbot');
+    const chatbotToggle = document.getElementById('chatbot-toggle');
+    const chatbotPanel = document.getElementById('chatbot-panel');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+    const chatbotForm = document.getElementById('chatbot-form');
+    const chatbotInput = document.getElementById('chatbot-input');
+
+    function appendChatMessage(text, role) {
+      if (!chatbotMessages) return;
+
+      const message = document.createElement('div');
+      message.className = `chatbot-message ${role}`;
+      message.textContent = text;
+      chatbotMessages.appendChild(message);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function getChatbotReply(input) {
+      const message = input.toLowerCase();
+
+      if (message.includes('hour') || message.includes('open') || message.includes('time')) {
+        return 'We are open Monday to Friday from 7:00 AM to 10:00 PM, and Saturday to Sunday from 8:00 AM to 11:00 PM.';
+      }
+      if (message.includes('where') || message.includes('address') || message.includes('location') || message.includes('vashi')) {
+        return 'You can find us at Shop 4, Sai Residency, Sector 17, Vashi, Navi Mumbai - 400703.';
+      }
+      if (message.includes('pickup') || message.includes('delivery') || message.includes('order') || message.includes('app')) {
+        return 'You can place your order through the Tip Top app for pickup and delivery, then visit the cafe whenever you want the full in-store experience.';
+      }
+      if (message.includes('menu') || message.includes('coffee') || message.includes('drink') || message.includes('bakery')) {
+        return 'Our menu highlights coffees, bakery favourites, and cold drinks. You can scroll to the Menu section to explore the categories in detail.';
+      }
+      if (message.includes('contact') || message.includes('phone') || message.includes('email')) {
+        return 'You can call us at +91 98765 43210 or email hello@tiptopcafe.in and the team will help you out.';
+      }
+
+      return 'I can help with hours, location, menu details, pickup, delivery, and contact info. Try asking about any of those.';
+    }
+
+    function setChatbotState(isOpen) {
+      if (!chatbot || !chatbotToggle || !chatbotPanel) return;
+
+      chatbot.classList.toggle('open', isOpen);
+      chatbotToggle.setAttribute('aria-expanded', String(isOpen));
+      chatbotPanel.setAttribute('aria-hidden', String(!isOpen));
+
+      if (isOpen && chatbotInput) {
+        chatbotInput.focus();
+      }
+    }
+
+    if (chatbotToggle) {
+      chatbotToggle.addEventListener('click', () => {
+        const isOpen = chatbot.classList.contains('open');
+        setChatbotState(!isOpen);
+      });
+    }
+
+    document.querySelectorAll('[data-chat-prompt]').forEach(button => {
+      button.addEventListener('click', () => {
+        const prompt = button.getAttribute('data-chat-prompt');
+        if (!prompt) return;
+
+        appendChatMessage(prompt, 'user');
+        appendChatMessage(getChatbotReply(prompt), 'bot');
+        setChatbotState(true);
+      });
+    });
+
+    if (chatbotForm) {
+      chatbotForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const userMessage = chatbotInput ? chatbotInput.value.trim() : '';
+
+        if (!userMessage) return;
+
+        appendChatMessage(userMessage, 'user');
+        appendChatMessage(getChatbotReply(userMessage), 'bot');
+        chatbotForm.reset();
+      });
+    }
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    function prepareMenuTrack(track) {
+      if (!track.dataset.duplicated) {
+        const cards = Array.from(track.children);
+        cards.forEach(card => {
+          track.appendChild(card.cloneNode(true));
+        });
+        track.dataset.duplicated = 'true';
+      }
+
+      const originalCount = track.children.length / 2;
+      const originalCards = Array.from(track.children).slice(0, originalCount);
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      const scrollDistance = originalCards.reduce((total, card) => {
+        return total + card.getBoundingClientRect().width;
+      }, 0) + gap * originalCards.length;
+
+      track.style.setProperty('--scroll-distance', `${scrollDistance}px`);
+    }
+
+    const activeTrack = document.querySelector('.tab-panel.active .menu-track');
+    if (activeTrack) prepareMenuTrack(activeTrack);
+
+    window.addEventListener('resize', () => {
+      const currentTrack = document.querySelector('.tab-panel.active .menu-track');
+      if (currentTrack) prepareMenuTrack(currentTrack);
+    });
+
+    document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
+      anchor.addEventListener('click', (event) => {
+        const targetId = anchor.getAttribute('href');
+        const target = targetId ? document.querySelector(targetId) : null;
+
+        if (!target) return;
+
+        event.preventDefault();
+        setMobileNavState(false);
+        const navHeight = document.querySelector('nav').offsetHeight;
+        const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+
+        window.scrollTo({
+          top,
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      nav.style.boxShadow = window.scrollY > 40 ? '0 4px 30px rgba(42,26,14,0.12)' : 'none';
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 600) {
+        setMobileNavState(false);
+      }
+    });
   </script>
 </body>
 </html>
